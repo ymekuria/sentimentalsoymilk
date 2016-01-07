@@ -3,7 +3,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-var router = require(./routers/router.js);
+var router = require('./routers/router.js');
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
 
