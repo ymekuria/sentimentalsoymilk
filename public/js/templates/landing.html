@@ -3,7 +3,7 @@
 <label for="landing-search"> Filter By City </label>
 <input type="text" placeholder="San Francisco etc" id="landing-search" ng-model="filter.location">
 <ul>
-  <li ng-repeat="item in itineraries | filter:filter">
+  <li class="itineraies-li" ng-repeat="item in itineraries | filter:filter">
     <p>{{item.name}}</p>
     <p>rating: {{item.rating}}/5</p>
   </li>
