@@ -23,6 +23,7 @@ angular.module('app.login', [])
     }
     $http.post('/signup', userData)
       .success(function () {
+        
         // redirect to main page
       })
   };

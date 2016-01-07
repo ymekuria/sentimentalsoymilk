@@ -4,7 +4,6 @@ angular.module('app.create', [])
 
   $scope.formCompleted = false;
 
-
   $scope.startItinerary = function () {
     console.log('start itinerary');
     if (!$scope.itineraryName || !$scope.city || !$scope.state) {
