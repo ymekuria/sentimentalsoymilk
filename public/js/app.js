@@ -1,4 +1,4 @@
-angular.module('app', ['app.login', 'app.signup', 'app.landing', 'app.landing','ngRoute'])
+angular.module('app', ['app.login', 'app.signup', 'app.landing', 'app.landing', 'app.create','ngRoute'])
 
 // template for setting up routes
 .config(function ($routeProvider) {
@@ -14,6 +14,10 @@ angular.module('app', ['app.login', 'app.signup', 'app.landing', 'app.landing','
     .when('/signup', {
       templateUrl: './js/templates/signup.html',
       controller: 'LoginController'
+    })
+    .when('/create', {
+      templateUrl: './js/templates/createTrip.html',
+      controller: 'CreateTripController'
     })
     .otherwise('/');
 });
