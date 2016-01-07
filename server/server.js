@@ -7,24 +7,18 @@ var bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
 
-//var router = require(./routers/router.js);
-var db = require('./models/dbconnect.js');
-var User = require('./models/users.js');
-var Trips = require('./models/trips.js');
-var TripItems = require('./models/tripItem.js');
-
 // var user = new user({ name: 'Tessa' , password: 'password'});
 // console.log(silence.name);
 
 var app = express();
-var db = require('./models/dbconnect.js');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+require('./models/dbroutes.js')(app, express);
 
-var user = new User({username:'tessa'});
-console.log(user.username);
+
+
+var port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname+'/../public'));
 
