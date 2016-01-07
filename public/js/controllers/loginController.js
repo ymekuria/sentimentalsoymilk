@@ -5,12 +5,14 @@ angular.module('app.auth', [])
 
   // login function to be called when input form submitted
   $scope.login = function () {
+
     var userData = {
       "username":$scope.username,
       "password":$scope.password
     }
     $http.post('/login', userData)
       .success(function () {
+        alert('post /sign up hit server!');
         // redirect to main page
       })
   };
