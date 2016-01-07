@@ -14,4 +14,16 @@ angular.module('app.login', [])
         // redirect to main page
       })
   };
+
+  // sign up function to be called when input form submitted
+  $scope.signup = function () {
+    var userData = {
+      "username":$scope.username,
+      "password":$scope.password
+    }
+    $http.post('/signup', userData)
+      .success(function () {
+        // redirect to main page
+      })
+  };
 })
