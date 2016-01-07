@@ -17,8 +17,10 @@ module.exports = {
   checkAuth: function(req, res, next){
   }, 
   //trips
-  accessTrips: function(req, res, next) {
-
+  fetchTripData: function(req, res, next) {
+    //for now, we'll always make a call to API 
+    //parse route to get params
+    //send RESULTS FROM API
   },
   createTrip: function(req, res, next) {
 
