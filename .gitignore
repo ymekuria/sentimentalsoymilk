@@ -37,5 +37,5 @@ lib/
 .floo
 .flooignore
 
-## API keys
-client/env/config.js
+## API keys and Secrets
+server/env/config.js
