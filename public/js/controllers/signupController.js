@@ -11,6 +11,7 @@ angular.module('app.signup', [])
     }
     $http.post('/signup', userData)
       .success(function () {
+        alert("post/sign up hit the server");
         // redirect to main page
       })
   };
