@@ -3,7 +3,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-var router = require('./routers/router.js');
+// var router = require('./routers/router.js');
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
 
@@ -17,6 +17,10 @@ var TripItems = require('./models/tripItem.js');
 // console.log(silence.name);
 
 var app = express();
+var db = require('./models/dbconnect.js');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 var port = process.env.PORT || 8080;
 
 var user = new User({username:'tessa'});
@@ -27,6 +31,8 @@ app.use(express.static(__dirname+'/../public'));
 
 app.listen(port);
 console.log('Listening on ' + port);
+
+
 
 module.exports = app; 
 

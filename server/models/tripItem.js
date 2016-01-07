@@ -5,8 +5,13 @@ var tripsItemsSchema = mongoose.Schema({
   address: String,
   notes: String,
   category: String,
+  rating: String,
+  phone: String,
+  url : String
 });
 
 var TripItem = mongoose.model('TripItem', tripsItemsSchema);
 module.exports = TripItem;
+
+
 
