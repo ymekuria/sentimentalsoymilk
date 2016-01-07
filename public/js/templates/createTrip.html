@@ -66,5 +66,14 @@
   </div>
   <div class="selection-list col-xs-6 text-center">
     <h4>List of stuff goes here</h4>
+    <div class="activitylist">
+      <ul ng-show="formCompleted">
+        <li class="foursquare-li" ng-repeat="venue in venues">
+          <p>Venue Name: {{venue.name}}</p>
+          <p>Address: {{venue.location.formattedAddress}}</p>
+          <p>Category: {{venue.categories[0].name}}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
