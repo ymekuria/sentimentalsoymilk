@@ -1,6 +1,6 @@
-angular.module('app.login', [])
+angular.module('app.auth', [])
 
-.controller('LoginController', function ($scope, $http) {
+.controller('AuthController', function ($scope, $http) {
 
 
   // login function to be called when input form submitted
