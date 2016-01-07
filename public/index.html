@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
-    <title>Liza's Node</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Itinerary Maker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
   </head>
   <body>
-    <h1> Send me places!</h1>
-    <script type="text/javascript" src="app.js"></script>
+
+    <div ng-view></div>
+
+  <!-- libraries -->
+  <script src="bower_components/underscore/underscore-min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+  <!-- app files -->
+  <script src="js/app.js"></script>
+  <script src="js/controllers/loginController.js"></script>
+  <script src="js/controllers/signupController.js"></script>
+  <script src="js/controllers/landingController.js"></script>
   </body>
 </html>
