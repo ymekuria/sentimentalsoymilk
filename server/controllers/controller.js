@@ -5,6 +5,7 @@ var request = require('request');
 var key = require('../env/config')
 
 var  filterTripData = function(responseObj) {
+  console.log("WHOLE FILTERED DATA", responseObj);
     var filteredItems = responseObj.reduce(function(totalData, item) { 
       console.log(item.categories);
       var category = item.categories.length > 0 ? item.categories[0].name : '';
