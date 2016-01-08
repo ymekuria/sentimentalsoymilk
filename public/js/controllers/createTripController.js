@@ -14,12 +14,16 @@ angular.module('app.create', [])
       return;
     } else {
       $scope.formCompleted = true;
-      // $http.get('/activities/' + $scope.city + ',' + $scope.state)
-      //   .success(function (data) {
-      //     $scope.activities = data;
-      //   });
+      $http.get('/activities/' + $scope.city + ',' + $scope.state)
+      // $http.get('/activities/')
+        .success(function (data) {
+          console.log(data.response.venues);
+          $scope.activities = data.response.venues;
+        });
     }
   };
+
+  $scope.itinerary = []; 
 
   var response = {
     "meta": {
@@ -1625,5 +1629,10 @@ angular.module('app.create', [])
   }
 
   $scope.venues = response.response.venues;
+
+  $scope.addToTrip = function(){
+    console.log(this.activity);
+    $scope.itinerary.push(this.activity);
+  }
 });
 

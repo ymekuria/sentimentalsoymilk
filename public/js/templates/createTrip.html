@@ -62,16 +62,29 @@
       <h4>{{city}}, {{state}}</h4>
     </div>
 
+    <div class="itineraryItems" ng-show="!!formCompleted">
+      <div ng-repeat="item in itinerary track by $index">
+        {{ item.name }}
+      </div>
+    </div>
+
 
   </div>
   <div class="selection-list col-xs-6 text-center">
     <h4>List of stuff goes here</h4>
     <div class="activitylist">
       <ul ng-show="formCompleted">
-        <li class="foursquare-li" ng-repeat="venue in venues">
-          <p>Venue Name: {{venue.name}}</p>
-          <p>Address: {{venue.location.formattedAddress}}</p>
-          <p>Category: {{venue.categories[0].name}}</p>
+        <li class="foursquare-li" ng-repeat="activity in activities" ng-show="hide()">
+          <div class="row">
+            <div class="col-xs-8">
+              <p>Venue Name: {{activity.name}}</p>
+              <p>Address: {{activity.location.formattedAddress}}</p>
+              <p>Category: {{activity.categories[0].name}}</p>
+            </div>
+            <div class="col-xs-4">
+              <button class="btn btn-success" ng-click="addToTrip()">Add</button>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
