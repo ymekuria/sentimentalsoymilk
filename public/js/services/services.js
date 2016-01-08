@@ -1,6 +1,6 @@
 angular.module('app.services',[])
 
-.factory('ActivitiesData', function($http){
+.factory('ActivitiesData', function($http, $location){
   var data = {};
   data.searchedCity = {};
   data.cityCache = {};
@@ -70,6 +70,7 @@ angular.module('app.services',[])
     $http.post('/trips', tripData)
     .then(function(){
       console.log("Trip Created");
+      $location.path('/myTrips');
     })
     .catch(function(err){
       console.log("Error Creating Trip: ", err)
