@@ -1,5 +1,5 @@
 
-angular.module('app', ['app.login', 'app.signup', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
+angular.module('app', ['app.auth', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
 
 // template for setting up routes
 .config(function ($routeProvider) {

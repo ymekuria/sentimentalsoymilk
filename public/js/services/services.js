@@ -95,6 +95,6 @@ angular.module('app.services',[])
   return data;
 });
 
-.factory('Auth', function($http){
+// .factory('Auth', function($http){
 
-});
+// });

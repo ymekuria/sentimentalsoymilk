@@ -5,7 +5,6 @@ angular.module('app.auth', [])
 
   // login function to be called when input form submitted
   $scope.login = function () {
-
     var userData = {
       "username":$scope.username,
       "password":$scope.password
