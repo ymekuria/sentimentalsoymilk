@@ -5,32 +5,37 @@ var request = require('request');
 var key = require('../env/config')
 
 
+var  filterTripData = function(responseObj) {
+    var filteredItems = responseObj.reduce(function(totalData, item) { 
+      var tripItem = {
+        name: item.name,
+        address: item.location.formattedAddress,
+        notes: '',
+        category: item.categories[0].shortName,
+        rating: item.stats.checkinsCount
+      };
+      totalData.push(tripItem); 
+      return totalData;
+    }, []);
+    console.log(filteredItems.length);
+    return filteredItems;
+};
+
 module.exports = {
-  //users
-  login: function(req, res, next) {
-    console.log("post-login server hit");
-    res.send("/sign up says: hello its me");
-    // var username = req.body.username;
-    // var password = req.body.password;
-  }, 
-  signup: function(req, res, next) {
-    console.log("post-signup server hit");
-    res.send("/sign up says: hello its me");
-    // var username = req.body.username;
-    // var password = req.body.password;
-  }, 
-  checkAuth: function(req, res, next){
-  }, 
-  //trips
+
   fetchTripData: function(req, res, next) {
     request('https://api.foursquare.com/v2/venues/search?client_id=' +key.API+'&client_secret='+key.SECRET+'&v=20130815&near=chicago,il', function(err, response, body) {
       if (!err && res.statusCode == 200) { 
       } else {
         console.log(err);
-      } 
-      res.send(body);
+      }
+      var filteredResults = filterTripData(JSON.parse(body).response.venues); 
+      //call filter func
+
+      res.send(filteredResults);
       });    
   },
+
   createTrip: function(req, res, next) {
 
   },
