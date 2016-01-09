@@ -32,7 +32,13 @@ angular.module('app.create', ['app.services'])
 
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-    var itinerary = JSON.stringify($scope.itinerary);
-    ActivitiesData.createTrip(itinerary);
+    var tripObj = {
+      name: $scope.itineraryName,
+      city: $scope.city,
+      state: $scope.state
+      activities: $scope.itinerary
+    };
+    var trip = JSON.stringify(tripObj);
+    ActivitiesData.createTrip(trip);
   };
 });
