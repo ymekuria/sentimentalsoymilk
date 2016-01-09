@@ -13,7 +13,7 @@ module.exports = function(app, express) {
 
 
   app.post('/trips', controller.createTrip);
-  // app.put('/trips', controller.editTrip);
+  app.get('/trips', controller.getTrips);
   // app.delete('/trips', controller.deleteTrip);
 
 }
