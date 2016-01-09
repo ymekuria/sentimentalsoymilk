@@ -5,20 +5,19 @@ var TripItems = require('./tripItem.js');
 
 module.exports = function (app, express) {
 
-  app.post('/trips', function(req,res){
-    var tripItem = new TripItems(
-      {name: req.body.name,
-       address: req.body.address,
-       notes: req.body.notes,
-       category: req.body.category,
-       rating: req.body.rating,
-       phone: req.body.phone,
-       url : req.body.url
-      }
-    )
-    tripItem.save();
-    res.sendStatus(200);
-  })
+  // app.post('/trips', function(req,res){
+  //   var tripItem = new TripItems(
+  //     {name: req.body.name,
+  //      address: req.body.address,
+  //      // notes: req.body.notes,
+  //      category: req.body.category,
+  //      rating: req.body.rating
+  //      //link
+  //     }
+  //   )
+  //   tripItem.save();
+  //   res.sendStatus(200);
+  // });
 
 
   app.get('/trips', function(req,res){
