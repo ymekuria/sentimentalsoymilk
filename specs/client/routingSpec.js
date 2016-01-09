@@ -16,13 +16,13 @@ describe('Routing', function () {
 
   it('Should have /signup route, template, and controller', function () {
     expect($route.routes['/signup']).to.be.defined;
-    expect($route.routes['/signup'].controller).to.equal('LoginController');
+    expect($route.routes['/signup'].controller).to.equal('AuthController');
     expect($route.routes['/signup'].templateUrl).to.equal('./js/templates/signup.html');
   });
 
   it('Should have /login route, template, and controller', function () {
     expect($route.routes['/login']).to.be.defined;
-    expect($route.routes['/login'].controller).to.equal('LoginController');
+    expect($route.routes['/login'].controller).to.equal('AuthController');
     expect($route.routes['/login'].templateUrl).to.equal('./js/templates/login.html');
   });
 
