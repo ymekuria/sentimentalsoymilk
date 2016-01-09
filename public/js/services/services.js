@@ -5,15 +5,14 @@ angular.module('app.services',[])
   data.searchedCity = {};
   data.cityCache = {};
 
-  data.getActivities = function(city, callback){
+  data.getActivities = function(city){
     //checks if the city has been searched before
     if(data.searchedCity[city]){
       //sends a callback with the cache data
-      callback(data.cityCache[city]);
-      return;
+      return data.cityCache[city]
     }
     //call get request to our server, with the city
-    $http.get('/activities/' + city)
+    return $http.get('/activities/' + city)
     .then(function(results){
       //our server calls a get request to the foursquare api
       //posts it to our database
@@ -21,7 +20,7 @@ angular.module('app.services',[])
       console.log('getActivities success data: ', results)
       data.searchedCity[city] = true;
       data.cityCache[city] = results;
-      callback(results);
+      return results;
     })
     .catch(function(err){
       console.log("Error Getting Activity Data: ", err)
@@ -49,15 +48,15 @@ angular.module('app.services',[])
       //posts it to our database
       //gets data back out of our database and returns it
       console.log('Trip Results for ' +userId +': ' + results)
-      callback(results);
+      return results;
     })
     .catch(function(err){
       console.log("Error Getting User Trip Data: ", err)
     })
   };
 
-  data.getIndividualTrip = function(userId, tripId){
-    $http.get('/trips/' + userId + '/' + tripId)
+  data.getIndividualTrip = function(tripId){
+    $http.get('/trips/' + tripId)
     .then(function(results){
       //our server calls a get request to the foursquare api
       //posts it to our database
@@ -71,7 +70,8 @@ angular.module('app.services',[])
   }
 
   data.postActivity = function(activityData){
-    $http.post('/activities', activityData)
+    //activityData is a JSON object
+    $http.post('db/activities/', activityData)
     .then(function(){
       console.log("Activity Created");
     })
@@ -81,6 +81,7 @@ angular.module('app.services',[])
   };
 
   data.createTrip = function(tripData){
+    //tripData is a JSON object
     $http.post('/trips', tripData)
     .then(function(){
       console.log("Trip Created");
@@ -91,15 +92,16 @@ angular.module('app.services',[])
     })
   };
 
-  data.saveTrip = function(tripId,tripData){
-    $http.put('/trips/' + tripId, tripData)
-    .then(function(){
-      console.log('Trip Saved: ', tripID)
-    })
-    .catch(function(err){
-      console.log("Error Saving Trip: ", err)
-    })
-  }
+  // data.saveTrip = function(tripId,tripData){
+  //   //tripData is a JSON object
+  //   $http.put('/trips/' + tripId, tripData)
+  //   .then(function(){
+  //     console.log('Trip Saved: ', tripID)
+  //   })
+  //   .catch(function(err){
+  //     console.log("Error Saving Trip: ", err)
+  //   })
+  // }
 
   // data.getAllPublicTrips = function(){}
   // data.signIn = function(){}

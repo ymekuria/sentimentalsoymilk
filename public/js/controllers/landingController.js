@@ -1,6 +1,13 @@
-angular.module('app.landing', [])
+angular.module('app.landing', ['app.services'])
 
-.controller('LandingController', function ($scope, $http) {
+.controller('LandingController', function ($scope, $http, ActivitiesData) {
+  var city = "Chicago,Il";
+
+  ActivitiesData.getActivities()
+  .then(function(results){
+    console.log(results)
+  });
+
   $scope.itineraries = [
     {
       name:"Sushi Place",
