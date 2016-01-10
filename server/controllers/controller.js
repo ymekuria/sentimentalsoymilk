@@ -1,17 +1,12 @@
 // var User = require('../models/users.js');
 // var Trips = require('../models/trips.js');
 // var TripItem = require('../models/tripItems.js');
-var db = require('../models/dbconnect.js');
-var User = require('../models/users.js');
-var Trips = require('../models/trips.js');
-var TripItems = require('../models/tripItem.js');
 var request = require('request');
-var key = require('../env/config');
-var bluebird = require('bluebird');
+var key = require('../env/config')
+
 
 
 var  filterTripData = function(responseObj) {
-  // console.log("WHOLE FILTERED DATA", responseObj);
     var filteredItems = responseObj.reduce(function(totalData, item) { 
       var location = item.venue.location;
       var photoURL = item.venue.featuredPhotos.items[0];
@@ -43,8 +38,8 @@ module.exports = {
       res.send(filteredResults);
       });    
   },
+
   createTrip: function(req, res, next) {
-    console.log(req.body);
     var playlist = {
       name: req.body.name,
       destination: [req.body.city, req.body.state],
@@ -57,16 +52,14 @@ module.exports = {
       res.json(results);
     });
   },
-  getTrips: function(req, res, next) {
-    Trips.find(function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-      res.json(results);
-    });
+  editTrip: function(req, res, next) {
+
   },
   deleteTrip: function(req, res, next) {
 
+  },
+  //apiData
+  fetchData: function(req, res, next) {
+
   }
 };
-
