@@ -26,7 +26,6 @@ angular.module('app.create', ['app.services'])
   $scope.itinerary = []; 
 
   $scope.addToTrip = function(){
-    console.log(this.activity);
     $scope.itinerary.push(this.activity);
   };
 
