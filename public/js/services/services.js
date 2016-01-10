@@ -4,7 +4,7 @@ angular.module('app.services',[])
   var data = {};
   data.searchedCity = {};
   data.cityCache = {};
-  $scope.user = {};
+  // $scope.user = {};
 
   data.getActivities = function(city){
     //checks if the city has been searched before
