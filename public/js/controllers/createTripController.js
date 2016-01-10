@@ -10,9 +10,9 @@ angular.module('app.create', ['app.services'])
     // 2. trigger the search *** TODO
   $scope.startItinerary = function () {
     console.log('start itinerary');
-    if (!$scope.itineraryName || !$scope.city || !$scope.state) {
-      return;
-    } else {
+    // if (!$scope.itineraryName || !$scope.city || !$scope.state) {
+    //   return;
+    // } else {
       $scope.formCompleted = true;
       $http.get('/activities/' + $scope.city + ',' + $scope.state)
       // $http.get('/activities/')
@@ -20,13 +20,12 @@ angular.module('app.create', ['app.services'])
           console.log(data);
           $scope.activities = data;
         });
-    }
+    // }
   };
 
   $scope.itinerary = []; 
 
   $scope.addToTrip = function(){
-    console.log(this.activity);
     $scope.itinerary.push(this.activity);
   };
 

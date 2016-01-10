@@ -13,8 +13,8 @@ module.exports = function(app, express) {
   // app.post('/db/activities', dbController.storeActivities);
 
 
-  app.post('/trips', controller.createTrip);
-  app.get('/trips', controller.getTrips);
+  // app.post('/trips', controller.createTrip);
+  // app.get('/trips', controller.getTrips);
   // app.delete('/trips', controller.deleteTrip);
 
 }
