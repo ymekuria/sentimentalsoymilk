@@ -21,8 +21,8 @@ module.exports = function (app, express) {
 
 
   app.get('/trips', function(req,res){
-    TripItems.find(function (err, tripitems) {
-      res.send(200, tripitems);
+    Trips.find(function (err, trips) {
+      res.send(200, trips);
     })
   })
 

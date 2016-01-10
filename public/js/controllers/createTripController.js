@@ -17,7 +17,7 @@ angular.module('app.create', ['app.services'])
       $http.get('/activities/' + $scope.city + ',' + $scope.state)
       // $http.get('/activities/')
         .success(function (data) {
-          console.log(data);
+          console.log("get/activities", data);
           $scope.activities = data;
         });
     // }
