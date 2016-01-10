@@ -26,7 +26,7 @@
 
 <!-- content -->
 <div class="creation-container">
-  <div class="col-xs-6 text-center">
+  <div class="col-xs-6 text-center left-column">
     <h4>Make Your Itinerary</h4>
 
     <div class="ShowForm" ng-show="!formCompleted">
@@ -58,20 +58,39 @@
     </div>
 
     <div class="itineraryDetails" ng-show="!!formCompleted">
+
       <h2>{{itineraryName}}</h2>
       <h4>{{city}}, {{state}}</h4>
+      <div class="activitylist">
+        <ul>
+          <li class="foursquare-li" ng-repeat="activity in itinerary track by $index">
+            <div class="row">
+              <div class="col-xs-8">
+                <p>Venue Name: {{activity.name}}</p>
+                <p>Address: {{activity.address}}</p>
+                <p>Category: {{activity.category}}</p>
+                <!-- <p>Checkins: {{activity.rating}}</p> -->
+              </div>
+              <div class="col-xs-4">
+                <button class="btn btn-success" ng-click="addToTrip()">Add</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+        <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
     </div>
 
-    <div class="itineraryItems" ng-show="!!formCompleted">
-      <div ng-repeat="item in itinerary track by $index">
+<!--     <div class="itineraryItems" ng-show="!!formCompleted">
+      <div ng-repeat="activity in itinerary track by $index">
         {{ item.name }}
       </div>
       <button class="btn btn-success" ng-click="saveItinerary()">Save Your Itinerary!</button>
-    </div>
+    </div> -->
 
 
   </div>
-  <div class="selection-list col-xs-6 text-center">
+  <div class="selection-list col-xs-6 text-center right-column">
     <h4>List of stuff goes here</h4>
     <div class="activitylist">
       <ul ng-show="formCompleted">
@@ -81,7 +100,7 @@
               <p>Venue Name: {{activity.name}}</p>
               <p>Address: {{activity.address}}</p>
               <p>Category: {{activity.category}}</p>
-              <p>Checkins: {{activity.rating}}</p>
+              <!-- <p>Checkins: {{activity.rating}}</p> -->
             </div>
             <div class="col-xs-4">
               <button class="btn btn-success" ng-click="addToTrip()">Add</button>

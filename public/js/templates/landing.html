@@ -1,6 +1,16 @@
-<h2>Welcome to the app</h2>
-<a href="/#create">Go Make An Itinerary</a>
+<h2 class="text-center">Soy Milk</h2>
+<a href="/#create" class="text-center" style="display: block">Make a Playlist</a>
 
+<h1 class="page-title">Popular Playlists:</h1>
+
+<div class="myTrips" style="background-color: white">
+  <span class="playlist" ng-repeat="trip in tripResults">
+    <h4>{{trip.name}}</h4>
+    <p>{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+  </span>
+</div>  
+
+<!-- 
 <h4>Search Itineraries</h4>
 <label for="landing-search"> Filter By City </label>
 <input type="text" placeholder="San Francisco etc" id="landing-search" ng-model="filter.location">
@@ -9,4 +19,4 @@
     <p>{{item.name}}</p>
     <p>rating: {{item.rating}}/5</p>
   </li>
-</ul>
+</ul> -->

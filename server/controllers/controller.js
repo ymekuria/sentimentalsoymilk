@@ -4,25 +4,24 @@
 var request = require('request');
 var key = require('../env/config')
 
-
-
-var  filterTripData = function(responseObj) {
-    var filteredItems = responseObj.reduce(function(totalData, item) { 
-      var location = item.venue.location;
-      var photoURL = item.venue.featuredPhotos.items[0];
-      var tripItem = {
-        name: item.venue.name,
-        address: location.address + ',' + location.city + ',' + location.cc,
-        notes: item.tips[0].text,
-        category: item.venue.categories.name,
-        rating: item.venue.rating,
-        photo: photoURL.prefix + '300x300' + photoURL.suffix,
-         url: item.venue.url
-      };
-      totalData.push(tripItem); 
-      return totalData;
-    }, []);
-    return filteredItems;
+var filterTripData = function(responseObj) {
+  // prevents server crashing when responseObj is undefined
+  if (!responseObj) {
+    return;
+  }
+  var filteredItems = responseObj.reduce(function(totalData, item) { 
+    var category = item.categories.length > 0 ? item.categories[0].name : '';
+    var tripItem = {
+      name: item.name,
+      address: item.location.formattedAddress,
+      notes: '',
+      category: category,
+      rating: item.stats.checkinsCountT
+    };
+    totalData.push(tripItem); 
+    return totalData;
+  }, []);
+  return filteredItems;
 };
 
 module.exports = {
@@ -32,6 +31,17 @@ module.exports = {
     request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
       if (!err && res.statusCode == 200) { 
       } else {
+        var filteredResults = filterTripData(JSON.parse(body).response.venues); 
+        module.exports.saveCityData(filteredResults).then(function(results){
+          res.send(JSON.stringify(results));
+        }); //arr of resutls  
+        //call filter functions
+      }
+    });
+  }, 
+  saveCityData: function(results, next) {
+    return TripItems.create(results, function(err, results) {
+      if (err) {
         console.log(err);
       }
       var filteredResults = filterTripData(JSON.parse(body).response.groups[0].items); 
