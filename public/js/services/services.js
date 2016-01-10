@@ -104,14 +104,16 @@ angular.module('app.services',[])
   // }
 
   // data.getAllPublicTrips = function(){}
-  // data.signIn = function(){}
-  // data.signUp = function(){}
 
 
 
   return data;
-});
+})
 
-// .factory('Auth', function($http){
+// .factory('AuthData', function($http){
+//   $http.post('/login', userData)
+//     .success(function () {
+      
+//   })
 
 // });

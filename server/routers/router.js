@@ -1,10 +1,11 @@
 var controller = require('../controllers/controller.js');
+var userController = require('../controllers/userController.js');
 var dbController = require('../models/dbroutes.js');
 
 module.exports = function(app, express) {
 
-  // app.post('/login', dbController.login);
-  // app.post('/signup', dbController.signup);
+  app.post('/api/login', userController.login);
+  app.post('/api/signup', userController.signup);
   //app.get('/user', controller.checkAuth);
 
   app.get('/activities/*', controller.fetchCityData);

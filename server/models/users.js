@@ -11,10 +11,6 @@ var UserSchema = mongoose.Schema({
   }]
 });
 
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
-
-
 UserSchema.pre('save', function (next) {
   var user = this;
 
@@ -42,3 +38,12 @@ UserSchema.pre('save', function (next) {
     });
   });
 });
+
+UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+    console.log("Comparing password")
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
+};
+module.exports = mongoose.model('User', UserSchema);
