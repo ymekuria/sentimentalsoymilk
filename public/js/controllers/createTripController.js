@@ -17,7 +17,7 @@ angular.module('app.create', ['app.services'])
     console.log('start itinerary');
     // this if block ensures that the Itinerary Name City and State are present 
     // before submitting the form
-    if (!$scope.itineraryName || !$scope.city || $scope.state) {
+    if (!$scope.itineraryName || !$scope.city || !$scope.state) {
       return;
     } else {
       // $scope.formCompleted set to true removes the form and begins populating 
