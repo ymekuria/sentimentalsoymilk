@@ -39,6 +39,7 @@ span.playlist {
 }
 span.playlist:hover {
   /*transform: scale(1.1);*/
+  /*-webkit-filter: brightness(85%);*/
   color: white;
   background-color: black;
 }
@@ -50,7 +51,10 @@ div.myTrips {
   margin: 0 auto;
   border: 1px solid black;
 }
-
+.playlist-img {
+  height:100px;
+  width: 100px;
+}
 .btn-spotify {
     border-radius: 0;
     text-transform: uppercase;
