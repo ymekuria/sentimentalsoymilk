@@ -5,7 +5,7 @@ angular.module('app.trip', ['app.services'])
   $scope.id = $routeParams.id;
 
   ActivitiesData.getTripActivities($scope.id, function (data) {
-    $scope.activities = data;
+    $scope.activities = data.data;
   });
 
 })

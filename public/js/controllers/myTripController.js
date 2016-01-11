@@ -7,10 +7,10 @@ angular.module('app.mytrips', ['app.services'])
   });
 
   $scope.viewTrip = function (index) {
-    $location.path('/trip/' + id);
     $scope.id = $scope.tripResults[index]._id;
-    console.log($scope.id);
+    // console.log($scope.id);
+    $location.path('/trip/' + $scope.id);
     // get request to get info for trip
-    ActivitiesData.getTripActivities(index);
+    // ActivitiesData.getTripActivities(index);
   };
 })

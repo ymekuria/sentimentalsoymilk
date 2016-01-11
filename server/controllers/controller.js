@@ -98,6 +98,13 @@ module.exports = {
     });
   },
 
+  getAllTrips: function (req, res, next) {
+    Trips.find(function (err, results) {
+      console.log(results);
+      res.json(results)
+    });
+  },
+
   accessTrip: function(req, res, next) {
     var tripId = req.url.split('/')[2];
     console.log("trip ID", tripId);

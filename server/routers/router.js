@@ -21,6 +21,7 @@ module.exports = function(app, express) {
 
   app.post('/trips', controller.createTrip);
   app.get('/trips/*', controller.accessTrip);
+  app.get('/trips', controller.getAllTrips);
   // app.delete('/trips', controller.deleteTrip);
 
 }
