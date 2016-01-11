@@ -70,7 +70,6 @@ module.exports = {
       }
     });
   },
-
   findUser: function(req, res, next) {
     var username = req.url.split('/')[3]
     User.findOne({username:username},function(err, result){
@@ -83,10 +82,9 @@ module.exports = {
     });
   },
 
-  findTrips: function(req, res, next) {
-    var userId = req.url.split('/')[3];
-    var tripId = req.url.split('/')[4];
-    console.log("trip ID", tripId);
+  findAllUserTrips: function(req, res, next) {
+    console.log("userID", req);
+    var userId = req.url.split('/')[4];
     var myTrips = [];
     User.findById({ _id: userId }, function(err, user) {
       if (err) { 
@@ -116,21 +114,27 @@ module.exports = {
     });
   },
 
+  // findOneUserTrip): function(req, res, next) {
+  // },
+
   addTrips : function(req, res, next) {
-    console.log("Hit addTrips", req.body)
     var userId = req.url.split('/')[3];
     User.findById({ _id: userId },function(err, result){
       if (err) {
         console.log("Error finding username:", err);
       } else {
-        console.log("Update with:", req.body.trips)
-        result.trips = req.body.trips;
+        var newTrips = req.body.trips;
+        var currentTrips = result.trips;
+        newTrips.forEach(function(trip){
+          currentTrips.push(trip);
+        })
+        result.trips = currentTrips;
         result.save(function(err) {
-          if (err) console.log(err);
-          console.log("addTrips result", result)
+          if (err) {
+            console.log(err);
+          }
           res.send(result);
-        });
-        
+        });       
       }
     });
   },
