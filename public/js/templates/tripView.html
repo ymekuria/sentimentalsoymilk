@@ -25,18 +25,20 @@
 </nav>
 
 <!-- Content -->
-  <h1 class="page-title">Playlists</h1>
+  <h1 class="page-title">Playlist</h1>
 
-  <div class="myTrips" style="background-color: white">
-    <span class="playlist" ng-repeat="trip in tripResults" ng-click="viewTrip($index)">
-      <div class="playlist-img">
-        <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
+<div class="activitylist-right">
+  <ul>
+    <li class="foursquare-li li-add" ng-repeat="activity in activities">
+      <div class="row">
+          <img class="addActivityImage" src="{{activity.photo}}" alt="{{activity.name}} in {{activity.address.split(',')[1]}}">
+          <p><strong>{{activity.name}}</strong></p>
+          <p>{{activity.address.split(',')[0]}}</p>
+          <p>{{activity.category}}</p>
+          <p>{{activity.rating}}/10</p>
+          <a href="{{activity.url}}" target="_blank">Website</a>
       </div>
-      <div class="playlist-info">
-        <p class="glyphicon glyphicon-play-circle play-icon"></p>
-        <p class="trip-name">{{trip.name}}</p>
-        <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
-      </div>
-    </span>
-  </div>  
+    </li>
+  </ul>
+</div>
 

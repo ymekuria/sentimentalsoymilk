@@ -1,4 +1,4 @@
-angular.module('app', ['app.auth', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
+angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
 
 
 // template for setting up routes
@@ -26,6 +26,10 @@ angular.module('app', ['app.auth', 'app.landing', 'app.create', 'app.services', 
     })
     .when('/splash', {
       templateUrl: './js/templates/splash.html',
+    })
+    .when('/trip/:id', {
+      templateUrl: './js/templates/tripView.html',
+      controller: 'TripController'
     })
     .otherwise('/');
 });
