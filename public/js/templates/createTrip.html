@@ -61,7 +61,7 @@
 
       <h2>{{itineraryName}}</h2>
       <h4>{{city}}, {{state}}</h4>
-      <div class="activitylist">
+      <div class="activitylist-left">
         <ul>
           <li class="foursquare-li" ng-repeat="activity in itinerary track by $index">
             <div class="row">
@@ -92,7 +92,7 @@
   </div>
   <div class="selection-list col-xs-6 text-center right-column">
     <h4>Activities</h4>
-    <div class="activitylist">
+    <div class="activitylist-right">
       <ul ng-show="formCompleted">
         <li class="foursquare-li" ng-repeat="activity in activities | orderBy:'-rating'">
           <div class="row">

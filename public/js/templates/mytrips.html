@@ -30,9 +30,7 @@
   <div class="myTrips" style="background-color: white">
     <span class="playlist" ng-repeat="trip in tripResults">
       <div class="playlist-img">
-        <!-- <img src="{{}}" alt=""> -->
-        <!-- test image -->
-        <img src="http://www.html.am/images/samples/remarkables_queenstown_new_zealand-300x225.jpg" alt="Photo of the Remarkables mountain range in Queenstown, New Zealand." class="GeneratedImage">
+        <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
       </div>
       <div class="playlist-info">
         <p class="glyphicon glyphicon-play-circle play-icon"></p>
