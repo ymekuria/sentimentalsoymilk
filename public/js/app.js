@@ -24,5 +24,8 @@ angular.module('app', ['app.auth', 'app.landing', 'app.create', 'app.services', 
       templateUrl: './js/templates/mytrips.html',
       controller: 'MyTripsController'
     })
+    .when('/splash', {
+      templateUrl: './js/templates/splash.html',
+    })
     .otherwise('/');
 });
