@@ -1,28 +1,33 @@
+
+//  This controller applies to the createTrip.html
 angular.module('app.create', ['app.services'])
 
+//  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
 .controller('CreateTripController', function ($scope, $http, ActivitiesData) {
-  // variable to determine if the form is completed
+  
+  // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
-  // this function is to 
+  
+  // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
-    // 2. trigger the search *** TODO
+    // 2. trigger the search
   $scope.startItinerary = function () {
     console.log('start itinerary');
-    // if (!$scope.itineraryName || !$scope.city || !$scope.state) {
-    //   return;
-    // } else {
+    if (!$scope.itineraryName || !$scope.city) {
+      return;
+    } else {
+      // this removes the form
       $scope.formCompleted = true;
       $http.get('/activities/' + $scope.city + ',' + $scope.state)
-      // $http.get('/activities/')
         .success(function (data) {
           console.log("get/activities", data);
           $scope.activities = data;
         });
-    // }
   };
 
+  // $scope.itinerary is an array that contains 
   $scope.itinerary = []; 
 
   $scope.addToTrip = function(){
