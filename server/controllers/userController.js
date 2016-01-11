@@ -71,7 +71,7 @@ module.exports = {
     });
   },
 
-  find : function(req, res, next) {
+  findUser: function(req, res, next) {
     var username = req.url.split('/')[3]
     User.findOne({username:username},function(err, result){
       if (err) {
@@ -83,16 +83,54 @@ module.exports = {
     });
   },
 
+  findTrips: function(req, res, next) {
+    var userId = req.url.split('/')[3];
+    var tripId = req.url.split('/')[4];
+    console.log("trip ID", tripId);
+    var myTrips = [];
+    User.findById({ _id: userId }, function(err, user) {
+      if (err) { 
+        console.log("findById error", err)
+        return err; 
+      } else {
+        console.log("findbyID Results", trip);
+        return user;
+      }
+    })
+    .then(function(user){
+      var tripLength = user.trips.length;
+      user.trips.forEach(function(tripId){
+        Trips.findById({ _id: tripId }, function(err, trip) {
+          if (err) {
+            console.log("Error finding Trips by tripId", err)
+          } else {
+            console.log("Found trip", trip)
+            myTrips.push(trip);
+            if(tripLength === myTrips.length){
+              console.log("myTrip:", myTrips)
+              res.send(myTrips);
+            } 
+          }
+        });
+      });
+    });
+  },
+
   addTrips : function(req, res, next) {
-    console.log("Hit addTrips")
-    var username = req.url.split('/')[3];
-    User.findOne({username:username},function(err, result){
+    console.log("Hit addTrips", req.body)
+    var userId = req.url.split('/')[3];
+    User.findById({ _id: userId },function(err, result){
       if (err) {
         console.log("Error finding username:", err);
       } else {
-        console.log("Update with:", req)
-        console.log("addTrips result", result)
-        res.send(result);
+        console.log("Update with:", req.body.trips)
+        result.trips = req.body.trips;
+        result.save(function(err) {
+          if (err) console.log(err);
+          console.log("addTrips result", result)
+          res.send(result);
+        });
+        
       }
     });
   },
