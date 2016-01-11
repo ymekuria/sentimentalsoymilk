@@ -6,8 +6,9 @@ module.exports = function(app, express) {
 
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
-  app.get('/api/user/*', userController.find);
+  app.get('/api/user/*', userController.findUser);
   app.put('/api/user/*', userController.addTrips);
+  app.get('/api/user/*/*', userController.findTrips);
   app.get('/logout', userController.logout);
   //app.get('/user', controller.checkAuth);
 
@@ -19,7 +20,7 @@ module.exports = function(app, express) {
 
 
   app.post('/trips', controller.createTrip);
-  // app.get('/trips', controller.getTrips);
+  app.get('/trips/*', controller.accessTrip);
   // app.delete('/trips', controller.deleteTrip);
 
 }

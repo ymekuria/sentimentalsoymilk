@@ -3,19 +3,16 @@ var Trips = require('../models/trips.js');
 var TripItems = require('../models/tripItem.js');
 var request = require('request');
 var key = require('../env/config')
+var async = require('async');
 
 var filterTripData = function(responseObj) {
-  // prevents server crashing when responseObj is undefined
-  if (!responseObj) {
-    return;
-  }
-  var filteredItems = responseObj.reduce(function(totalData, item) { 
+  return responseObj.reduce(function(totalData, item) { 
     var location = item.venue.location;
     var photoURL = item.venue.featuredPhotos.items[0];
     var notes = item.tips === undefined ? '' : item.tips[0].text; 
     var tripItem = {
       name: item.venue.name,
-      address: location.address + ', ' + location.city + ', ' + location.state + ' ' + location.cc,
+      address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
       city: location.city,
       notes: notes,
       category: item.venue.categories[0].name,
@@ -26,7 +23,6 @@ var filterTripData = function(responseObj) {
     totalData.push(tripItem); 
     return totalData;
   }, []);
-  return filteredItems;
 };
 
 var parseCityName = function(cityRequest) {
@@ -66,13 +62,17 @@ module.exports = {
   fetchCityData: function(req, res, next) {
     var cityState = req.url.split('/')[2];
     return request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
-      if (!err && res.statusCode == 200) { 
+      // prevent server crashing when responseObj is undefined
+      if (!err && JSON.parse(body).meta.code === 200) { 
         var filteredResults = filterTripData(JSON.parse(body).response.groups[0].items);
         module.exports.saveCityData(filteredResults).then(function(results, err) {
+          if (err) {
+            res.send(err);
+          }
         res.send(JSON.stringify(results));
         });
       } else {
-        res.send(err);
+        res.status(400).send(err);
       }
     });
   }, 
@@ -83,13 +83,12 @@ module.exports = {
       }
     });    
   },
-
   createTrip: function(req, res, next) {
     var playlist = {
       name: req.body.name,
       destination: [req.body.city, req.body.state],
-      image: req.body.image,
-      activities: req.body.activities
+      activities: req.body.activities,
+      image: req.body.image
     };
     Trips.create(playlist, function(err, results) {
       if (err) {
@@ -98,10 +97,36 @@ module.exports = {
       res.json(results);
     });
   },
-  editTrip: function(req, res, next) {
 
-  },
-  deleteTrip: function(req, res, next) {
-
+  accessTrip: function(req, res, next) {
+    var tripId = req.url.split('/')[2];
+    console.log("trip ID", tripId);
+    var fullActivities = [];
+    Trips.findById({ _id: tripId }, function(err, trip) {
+      if (err) { 
+        console.log("findById error", err)
+        return err; 
+      } else {
+        console.log("FindbyID Results", trip);
+        return trip;
+      }
+    })
+    .then(function(trip){
+      var activityLength = trip.activities.length;
+      trip.activities.forEach(function(tripId){
+        TripItems.findById({ _id: tripId }, function(err, trip) {
+          if (err) {
+            console.log("Error finding TripItems by tripId", err)
+          } else {
+            console.log("Found trip", trip)
+            fullActivities.push(trip);
+            if(activityLength === fullActivities.length){
+              console.log("fullActivities:", fullActivities)
+              res.send(fullActivities);
+            } 
+          }
+        });
+      });
+    });
   }
 };
