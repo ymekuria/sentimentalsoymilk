@@ -63,17 +63,13 @@
       <h4>{{city}}, {{state}}</h4>
       <div class="activitylist-left">
         <ul>
-          <li class="foursquare-li" ng-repeat="activity in itinerary track by $index">
+          <li class="foursquare-li li-remove" ng-repeat="activity in itinerary track by $index">
             <div class="row">
-              <div class="col-xs-8">
-                <p>Venue Name: {{activity.name}}</p>
-                <p>Address: {{activity.address}}</p>
-                <p>Category: {{activity.category}}</p>
-                <!-- <p>Checkins: {{activity.rating}}</p> -->
-              </div>
-              <div class="col-xs-4">
-                <button class="btn btn-success" ng-click="addToTrip()">Add</button>
-              </div>
+              <p><strong>{{activity.name}}</strong></p>
+              <p>{{activity.address.split(',')[0]}}</p>
+              <p>{{activity.category}}</p>
+              <span id="remove-button" class="glyphicon glyphicon-remove" ng-click="removeFromTrip()"></span>
+              <!-- <button id="remove-button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="removeFromTrip()"></button> -->
             </div>
           </li>
         </ul>
@@ -94,19 +90,18 @@
     <h4>Activities</h4>
     <div class="activitylist-right">
       <ul ng-show="formCompleted">
-        <li class="foursquare-li" ng-repeat="activity in activities | orderBy:'-rating'">
-          <div class="row">
-            <div class="col-xs-8">
-              <p>Venue Name: {{activity.name}}</p>
-              <p>Address: {{activity.address}}</p>
-              <p>Category: {{activity.category}}</p>
-              <p>Rating: {{activity.rating}}</p>
-              <img class="playlist-img" src="{{activity.photo}}" alt="">
+        <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-rating'">
+          <div class="row" ng-click="addToTrip()">
+
+              <img class="addActivityImage" src="{{activity.photo}}" alt="">
+
+              <p><strong>{{activity.name}}</strong></p>
+              <p>{{activity.address.split(',')[0]}}</p>
+              <p>{{activity.category}}</p>
+              <p>{{activity.rating}}/10</p>
               <a href="{{activity.url}}" target="_blank">Website</a>
-            </div>
-            <div class="col-xs-4">
-              <button class="btn btn-success" ng-click="addToTrip()">Add</button>
-            </div>
+              <!-- <button class="btn btn-success" ng-click="addToTrip()">Add</button> -->
+
           </div>
         </li>
       </ul>

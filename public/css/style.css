@@ -10,6 +10,11 @@ html {
   height: 80vh;
   overflow: auto;
 }
+.addActivityImage {
+  height: 150px;
+  width: 150px;
+  float: left;
+}
 li.itineraies-li {
   list-style: none;
   border: 1px solid black;
@@ -25,9 +30,22 @@ li.itineraies-li {
   height: 50px;
 }
 li.foursquare-li {
+  position: relative;
   list-style: none;
   border: 1px solid black;
-  border-radius: 20px;
+  transition: background-color 1s ease;
+  transition: color 0.6s ease;
+}
+li.li-add:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+#remove-button {
+  position: absolute;
+  cursor: pointer;
+  right: 3px;
+  top: 3px;
 }
 span.playlist {
   position: relative;

@@ -32,6 +32,11 @@ angular.module('app.create', ['app.services'])
     $scope.itinerary.push(this.activity);
   };
 
+  $scope.removeFromTrip = function () {
+    var index = $scope.itinerary.indexOf(this.activity);
+    $scope.itinerary.splice(index, 1);
+  };
+
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
 
