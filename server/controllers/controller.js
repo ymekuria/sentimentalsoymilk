@@ -97,71 +97,36 @@ module.exports = {
       res.json(results);
     });
   },
+
   accessTrip: function(req, res, next) {
     var tripId = req.url.split('/')[2];
     console.log("trip ID", tripId);
-        var fullActivities = [];
-    var gatherActivity = function(item) {
-      fullActivities.push(item);
-    }
-
+    var fullActivities = [];
     Trips.findById({ _id: tripId }, function(err, trip) {
-      if (!err) {
-        async.forEach(trip.activities, function(activityId, gatherActivity();
-        }) {
-          module.exports.accessActivity(activityId, gatherActivity(item));
-          }, function(err) {
-            console.log('ITEM HERE', item);
-            if (err) {
-              return next(err);
-            }
-          // fullActivities.push(item);
-        });
-        res.send(JSON.stringify(fullActivities));
+      if (err) { 
+        console.log("findById error", err)
+        return err; 
       } else {
-        res.send(err);
-      }
-    });
-  },
-
-  //       for (var i = 0; i < trip.activities.length; i++) {
-  //         module.exports.accessActivity(trip.activities[0], function(activityObj) {
-  //           // console.log('IN REDUCE: acivityObj', activityObj);
-  //         fullActivities.push(activityObj);
-  //         console.log("FULL ACT", fullActivities);                
-  //          // ).then(function(err, activityObj) {
-  //          //  console.log('IN REDUCE: acivityObj', activityObj);
-  //         });           
-  //       }
-  //       var activityDetails = trip.activities.reduce(function(fullActivitiesArr, activityId) {
-          
-  //       }, []);
-  //     } else {
-  //       res.send(err);
-  //     }
-  //   });
-  //   TripItems.findById({ _id: tripId }, function(err, trip) {
-  //     if (!err) {
-  //       res.send(trip);
-  //     } else {
-  //       res.send(err);
-  //     }
-  //   })
-  // },
-  accessActivity:function(id, next) {
-    return TripItems.findById({ _id: id }, function(err, trip) {
-      if (!err) {
-        // console.log('FOUND TRIPITEM', trip);
-        next(trip);
-      } else {
-        console.log(err);
+        console.log("FindbyID Results", trip);
+        return trip;
       }
     })
-  },
-  editTrip: function(req, res, next) {
-
-  },
-  deleteTrip: function(req, res, next) {
-
+    .then(function(trip){
+      var activityLength = trip.activities.length;
+      trip.activities.forEach(function(tripId){
+        TripItems.findById({ _id: tripId }, function(err, trip) {
+          if (err) {
+            console.log("Error finding TripItems by tripId", err)
+          } else {
+            console.log("Found trip", trip)
+            fullActivities.push(trip);
+            if(activityLength === fullActivities.length){
+              console.log("fullActivities:", fullActivities)
+              res.send(fullActivities);
+            } 
+          }
+        });
+      });
+    });
   }
 };
