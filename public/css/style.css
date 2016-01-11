@@ -50,3 +50,68 @@ div.myTrips {
   margin: 0 auto;
   border: 1px solid black;
 }
+
+.btn-spotify {
+    border-radius: 0;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    outline: 0;
+    color: #F8F8FF;
+    background-color: #00CC66;
+    border: 0px ;
+    width: 280px;
+    height: 60px;
+    border-radius: 15px;
+    font-size: 22px;
+    margin-bottom: 5px
+
+}
+
+.suitcase {
+    width: 80px;
+    height: 60px;
+}
+
+.spotify-link {
+    margin-top: 5px
+    font-size: 30px;
+    color:black;
+    text-decoration: underline;
+}
+
+#light{
+    font-size: 23px
+}
+
+.learn {
+    font-size: 23px;
+    color: #F8F8FF;
+    text-decoration: underline;
+}
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url('https://images.unsplash.com/photo-1445810694374-0a94739e4a03?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=75e4e2d57b0f4ae0843bb15002118302') no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+#light{
+    font-size: 23px;
+    color: #F8F8FF;
+}
+
+.about {
+  background-color: black;
