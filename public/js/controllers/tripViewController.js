@@ -4,8 +4,11 @@ angular.module('app.trip', ['app.services'])
 
   $scope.id = $routeParams.id;
 
-  ActivitiesData.getTripActivities($scope.id, function (data) {
-    $scope.activities = data.data;
+  ActivitiesData.getTripActivities($scope.id, function (tripObj) {
+    console.log('tripobj ', tripObj);
+    $scope.activities = tripObj.data.list;
+    $scope.name = tripObj.data.name;
+    $scope.destination = tripObj.data.destination;
   });
 
 })

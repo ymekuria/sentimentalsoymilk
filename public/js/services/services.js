@@ -109,6 +109,7 @@ angular.module('app.services',[])
   data.getTripActivities = function(id, cb){
    return $http.get('/trips/' + id)
    .then(function(results){
+    console.log('trip data: ', results)
      //our server calls a get request to the foursquare api
      //posts it to our database
      //gets data back out of our database and returns it

@@ -16,6 +16,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/#create">Create A Trip</a></li>
+        <li><a href="/#myTrips">My Trips</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/logout">Logout</a></li>
@@ -25,13 +26,16 @@
 </nav>
 
 <!-- Content -->
-  <h1 class="page-title">Playlist</h1>
+  <h2 class="page-title">{{name}}</h2>
+  <h4 class="page-title">{{destination[0]}}, {{destination[1]}}</h4>
 
-<div class="activitylist-right">
+<div class="activitylist-right tripview-container">
   <ul>
     <li class="foursquare-li li-add" ng-repeat="activity in activities">
       <div class="row">
-          <img class="addActivityImage" src="{{activity.photo}}" alt="{{activity.name}} in {{activity.address.split(',')[1]}}">
+          <div class="col-xs-4">
+            <img class="addActivityImage" src="{{activity.photo}}" alt="{{activity.name}} in {{activity.address.split(',')[1]}}">
+          </div>
           <p><strong>{{activity.name}}</strong></p>
           <p>{{activity.address.split(',')[0]}}</p>
           <p>{{activity.category}}</p>

@@ -108,7 +108,8 @@ module.exports = {
   accessTrip: function(req, res, next) {
     var tripId = req.url.split('/')[2];
     console.log("trip ID", tripId);
-    var fullActivities = [];
+    var fullActivities = {};
+    fullActivities.list = [];
     Trips.findById({ _id: tripId }, function(err, trip) {
       if (err) { 
         console.log("findById error", err)
@@ -119,6 +120,8 @@ module.exports = {
       }
     })
     .then(function(trip){
+      fullActivities.name = trip.name;
+      fullActivities.destination = trip.destination;
       var activityLength = trip.activities.length;
       trip.activities.forEach(function(tripId){
         TripItems.findById({ _id: tripId }, function(err, trip) {
@@ -126,8 +129,8 @@ module.exports = {
             console.log("Error finding TripItems by tripId", err)
           } else {
             console.log("Found trip", trip)
-            fullActivities.push(trip);
-            if(activityLength === fullActivities.length){
+            fullActivities.list.push(trip);
+            if(activityLength === fullActivities.list.length){
               console.log("fullActivities:", fullActivities)
               res.send(fullActivities);
             } 
