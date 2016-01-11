@@ -92,16 +92,13 @@
       <ul ng-show="formCompleted">
         <li class="foursquare-li li-add" ng-repeat="activity in activities | orderBy:'-rating'">
           <div class="row" ng-click="addToTrip()">
-
               <img class="addActivityImage" src="{{activity.photo}}" alt="">
-
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.address.split(',')[0]}}</p>
               <p>{{activity.category}}</p>
               <p>{{activity.rating}}/10</p>
               <a href="{{activity.url}}" target="_blank">Website</a>
               <!-- <button class="btn btn-success" ng-click="addToTrip()">Add</button> -->
-
           </div>
         </li>
       </ul>
