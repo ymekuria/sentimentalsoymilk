@@ -88,6 +88,7 @@ module.exports = {
     var playlist = {
       name: req.body.name,
       destination: [req.body.city, req.body.state],
+      image: req.body.image,
       activities: req.body.activities
     };
     Trips.create(playlist, function(err, results) {

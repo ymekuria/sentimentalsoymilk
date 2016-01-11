@@ -26,7 +26,15 @@ angular.module('app.create', ['app.services'])
   $scope.itinerary = []; 
 
   $scope.addToTrip = function(){
+    if ($scope.itinerary.length === 0) {
+      $scope.itineraryImage = this.activity.photo;
+    }
     $scope.itinerary.push(this.activity);
+  };
+
+  $scope.removeFromTrip = function () {
+    var index = $scope.itinerary.indexOf(this.activity);
+    $scope.itinerary.splice(index, 1);
   };
 
   $scope.saveItinerary = function () {
@@ -40,7 +48,8 @@ angular.module('app.create', ['app.services'])
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: activityIds
+      activities: activityIds,
+      image: $scope.itineraryImage
     };
     var trip = JSON.stringify(tripObj);
     ActivitiesData.createTrip(trip);
