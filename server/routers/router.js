@@ -11,7 +11,9 @@ module.exports = function(app, express) {
   app.get('/logout', userController.logout);
   //app.get('/user', controller.checkAuth);
 
-  app.get('/activities/*', controller.fetchCityData);
+  // app.get('/activities/*', controller.fetchCityData);
+  app.get('/activities/*', controller.searchStoredData, controller.fetchCityData);
+
   // app.get('/db/activities', dbController.retrieveActivities);
   // app.post('/db/activities', dbController.storeActivities);
 

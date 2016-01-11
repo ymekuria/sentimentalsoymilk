@@ -14,7 +14,8 @@ var filterTripData = function(responseObj) {
     var photoURL = item.venue.featuredPhotos.items[0];
     var tripItem = {
       name: item.venue.name,
-      address: location.address + ', ' + location.city + ', ' + location.cc,
+      address: location.address + ', ' + location.city + ', ' + location.state + ' ' + location.cc,
+      city: location.city,
       notes: item.tips[0].text,
       category: item.venue.categories[0].name,
       rating: item.venue.rating,
@@ -28,15 +29,33 @@ var filterTripData = function(responseObj) {
 };
 
 module.exports = {
-
-  fetchCityData: function(req, res, next) {
+  //search through cached data before making api request
+  searchStoredData: function(req, res, next) {
     var cityState = req.url.split('/')[2];
-    request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
+    var cityLowerCase = cityState.split(',')[0];
+    var city = cityLowerCase[0].toUpperCase() + cityLowerCase.slice(1);
+    console.log("CITY NAME", city);
+    TripItems.find({ city: city }, function(err, list) {
+      if (list.length < 1) {
+        console.log("City not cached; fetching data");
+        module.exports.fetchCityData(cityState).then(function(results) {
+          res.send(JSON.stringify(results));
+        })
+      }
+      else if (!err) {
+        console.log("LIST FROM DB:",list[0]);
+        res.send(list);
+      } else {
+        res.send(err);
+      }
+    });
+  },
+  fetchCityData: function(dataToCache) {
+    console.log('REACHED fetchCityData', dataToCache);
+    return request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+dataToCache+'&venuePhotos=1', function(err, response, body) {
       if (!err && res.statusCode == 200) { 
         var filteredResults = filterTripData(JSON.parse(body).response.groups[0].items);
-        module.exports.saveCityData(filteredResults).then(function(results){
-          res.send(JSON.stringify(results));
-        }); 
+        module.exports.saveCityData(filteredResults);
       } else {
         res.send(err);
       }
@@ -67,10 +86,6 @@ module.exports = {
 
   },
   deleteTrip: function(req, res, next) {
-
-  },
-  //apiData
-  fetchData: function(req, res, next) {
 
   }
 };
