@@ -19,7 +19,7 @@ module.exports = function(app, express) {
 
 
   app.post('/trips', controller.createTrip);
-  // app.get('/trips', controller.getTrips);
+  app.get('/trips/*', controller.accessTrip);
   // app.delete('/trips', controller.deleteTrip);
 
 }

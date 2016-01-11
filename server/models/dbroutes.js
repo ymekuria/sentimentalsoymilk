@@ -20,11 +20,11 @@ module.exports = function (app, express) {
   // });
 
 
-  app.get('/trips', function(req,res){
-    Trips.find(function (err, trips) {
-      res.send(200, trips);
-    })
-  })
+  // app.get('/trips', function(req,res){
+  //   Trips.find(function (err, trips) {
+  //     res.send(200, trips);
+  //   })
+  // })
 
   app.post('/signup', function(req,res) {
     var user = new User({
