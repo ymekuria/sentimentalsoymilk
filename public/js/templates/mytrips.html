@@ -29,8 +29,16 @@
 
   <div class="myTrips" style="background-color: white">
     <span class="playlist" ng-repeat="trip in tripResults">
-      <h4>{{trip.name}}</h4>
-      <p>{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+      <div class="playlist-img">
+        <!-- <img src="{{}}" alt=""> -->
+        <!-- test image -->
+        <img src="http://www.html.am/images/samples/remarkables_queenstown_new_zealand-300x225.jpg" alt="Photo of the Remarkables mountain range in Queenstown, New Zealand." class="GeneratedImage">
+        <p class="glyphicon glyphicon-play-circle play-icon"></p>
+      </div>
+      <div class="playlist-info">
+        <p class="trip-name">{{trip.name}}</p>
+        <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+      </div>
     </span>
   </div>  
 
