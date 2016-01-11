@@ -31,10 +31,6 @@ angular.module('app.services',[])
   data.getTrips = function(){
     return $http.get('/trips')
     .then(function(results){
-      //our server calls a get request to the foursquare api
-      //posts it to our database
-      //gets data back out of our database and returns it
-      console.log('(services) Trip Results: ', results);
       return results;
     })
     .catch(function(err){

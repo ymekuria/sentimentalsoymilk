@@ -136,8 +136,8 @@ div.playlist-img {
   color: #F8F8FF;
   background-color: #00CC66;
   border: 0px ;
-  width: 280px;
-  height: 60px;
+  width: 240px;
+  height: 50px;
   border-radius: 15px;
   font-size: 22px;
   margin-bottom: 5px
@@ -153,6 +153,7 @@ div.playlist-img {
     font-size: 30px;
     color:black;
     text-decoration: underline;
+    text-shadow: 2px 2px #000000;
 }
 
 #light{
@@ -163,16 +164,17 @@ div.playlist-img {
     font-size: 23px;
     color: #F8F8FF;
     text-decoration: underline;
+    text-shadow: 2px 2px #000000;
 }
 
 .intro {
     display: table;
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url('https://images.unsplash.com/photo-1445810694374-0a94739e4a03?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=75e4e2d57b0f4ae0843bb15002118302') no-repeat bottom center scroll;
+    background: url('https://images.unsplash.com/photo-1445810694374-0a94739e4a03?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=75e4e2d57b0f4ae0843bb15002118302') no-repeat center center fixed;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -183,7 +185,18 @@ div.playlist-img {
 #light{
     font-size: 23px;
     color: #F8F8FF;
+    text-shadow: 2px 2px #000000;
 }
 
-.about {
-  background-color: black;
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+.full { height: 100%;}
+
+.brand-heading {
+  padding-top: 140px;
+  text-shadow: 2px 2px #000000;
+  text-align: center;
+}
