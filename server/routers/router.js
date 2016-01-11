@@ -8,7 +8,8 @@ module.exports = function(app, express) {
   app.post('/api/signup', userController.signup);
   app.get('/api/user/*', userController.findUser);
   app.put('/api/user/*', userController.addTrips);
-  app.get('/api/user/*/*', userController.findTrips);
+  app.get('/api/user/trips/*', userController.findAllUserTrips);
+  // app.get('/api/user/*/*', userController.findOneUserTrip);
   app.get('/logout', userController.logout);
   //app.get('/user', controller.checkAuth);
 
@@ -20,7 +21,7 @@ module.exports = function(app, express) {
 
 
   app.post('/trips', controller.createTrip);
-  app.get('/trips/*', controller.accessTrip);
+  app.get('/trips/:id', controller.accessTrip);
   app.get('/trips', controller.getAllTrips);
   // app.delete('/trips', controller.deleteTrip);
 
