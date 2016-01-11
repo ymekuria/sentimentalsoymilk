@@ -5,6 +5,9 @@ var request = require('request');
 var key = require('../env/config')
 var async = require('async');
 
+
+//<h3> filterTripData </h3> 
+
 var filterTripData = function(responseObj) {
   return responseObj.reduce(function(totalData, item) { 
     var location = item.venue.location;
@@ -25,6 +28,10 @@ var filterTripData = function(responseObj) {
   }, []);
 };
 
+
+// <h3> parseCityName </h3>
+// Accepts the decoded request url, reformats it and 
+// returns a string of the city name 
 var parseCityName = function(cityRequest) {
     var cityLowercase = cityRequest.split(',')[0];
     var city = '';
@@ -40,12 +47,21 @@ var parseCityName = function(cityRequest) {
 }
 
 module.exports = {
-  //search through cached data before making api request
+  //<h3> searchStoredData </h3> 
+  // Parses the city name from the request url param and 
+  // checks to see if our database containss that city.
+  // If we have a record for that city that is sent in the response, 
+  // otherwise fetch directly from the foursquare API using <h4> fetchCityData </h4> 
+  // and response with the API data
+  // Method: GET
+  // Route : /activities/*'
+
   searchStoredData: function(req, res, next) {
     var city = parseCityName(decodeURI(req.url.split('/')[2]));
     console.log(city);
     TripItems.find({ city: city }, function(err, list) {
       if (list.length < 1) {
+        // if (list.length < 1) {
         // City not cached; fetching data
         console.log("City not cached; fetching data");
         next();
@@ -59,6 +75,12 @@ module.exports = {
       }
     });
   },
+
+  //<h3> fetchCityData </h3> 
+  // Fetches data from the Foursquare API if the data is not 
+  // already stored in our database
+  // Method: GET
+  // Route : /activities/*'
   fetchCityData: function(req, res, next) {
     var cityState = req.url.split('/')[2];
     return request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
@@ -76,6 +98,11 @@ module.exports = {
       }
     });
   }, 
+
+
+  //<h3>  saveCityData </h3> 
+  // Adds the searched city to the database
+  // Model: TripItems
   saveCityData: function(results, next) {
     return TripItems.create(results, function(err, results) {
       if (err) {
@@ -83,6 +110,19 @@ module.exports = {
       }
     });    
   },
+
+  //<h3> createTrip </h3> 
+  // Accepts a JSON object to be stored.
+  // Example : tripObj = {
+    //   name: name,
+    //   city: city,
+    //   state: state,
+    //   activities: activities,
+    //   image: image
+    // };
+  // Method: PUT
+  // Route : /trips
+
   createTrip: function(req, res, next) {
     var playlist = {
       name: req.body.name,
