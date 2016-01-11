@@ -4,13 +4,6 @@
 <h1 class="page-title">Popular Playlists:</h1>
 
 <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
-<!-- <div class="myTrips" style="background-color: white">
-  <span class="playlist" ng-repeat="trip in tripResults">
-    <h4>{{trip.name}}</h4>
-    <p>{{trip.destination[0]}}, {{trip.destination[1]}}</p>
-  </span>
-</div>   -->
-
 
 <div class="myTrips" style="background-color: white">
   <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip($index)">
@@ -23,15 +16,4 @@
       <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
     </div>
   </span>
-</div>  
-
-<!-- 
-<h4>Search Itineraries</h4>
-<label for="landing-search"> Filter By City </label>
-<input type="text" placeholder="San Francisco etc" id="landing-search" ng-model="filter.location">
-<ul>
-  <li class="itineraies-li" ng-repeat="item in itineraries | filter:filter">
-    <p>{{item.name}}</p>
-    <p>rating: {{item.rating}}/5</p>
-  </li>
-</ul> -->
+</div>
