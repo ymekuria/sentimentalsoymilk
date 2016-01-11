@@ -105,7 +105,6 @@ module.exports = {
   },
   accessTrip: function(req, res, next) {
     var tripId = req.params.id;
-    var tripId = req.url.split('/')[2];
     console.log("trip ID", tripId);
     var fullActivities = {};
     fullActivities.list = [];
@@ -127,10 +126,8 @@ module.exports = {
           if (err) {
             console.log("Error finding TripItems by tripId", err)
           } else {
-            console.log("Found trip", trip)
             fullActivities.list.push(trip);
             if(activityLength === fullActivities.list.length){
-              console.log("fullActivities:", fullActivities)
               res.send(fullActivities);
             } 
           }
