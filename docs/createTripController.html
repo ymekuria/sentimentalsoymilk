@@ -95,10 +95,7 @@ if true, the form will hide and the right side of page will populate</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  $scope.startItinerary = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start itinerary'</span>);
-    <span class="hljs-keyword">if</span> (!$scope.itineraryName || !$scope.city) {
-      <span class="hljs-keyword">return</span>;
-    } <span class="hljs-keyword">else</span> {</pre></div></div>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start itinerary'</span>);</pre></div></div>
             
         </li>
         
@@ -109,17 +106,14 @@ if true, the form will hide and the right side of page will populate</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>this removes the form</p>
+              <p>this if block ensures that the Itinerary Name City and State are present 
+before submitting the form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      $scope.formCompleted = <span class="hljs-literal">true</span>;
-      $http.get(<span class="hljs-string">'/activities/'</span> + $scope.city + <span class="hljs-string">','</span> + $scope.state)
-        .success(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
-          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"get/activities"</span>, data);
-          $scope.activities = data;
-        });
-  };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!$scope.itineraryName || !$scope.city || $scope.state) {
+      <span class="hljs-keyword">return</span>;
+    } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -130,25 +124,14 @@ if true, the form will hide and the right side of page will populate</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>$scope.itinerary is an array that contains </p>
+              <p>$scope.formCompleted set to true removes the form and begins populating 
+the rest of the page.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.itinerary = []; 
-
-  $scope.addToTrip = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-    <span class="hljs-keyword">if</span> ($scope.itinerary.length === <span class="hljs-number">0</span>) {
-      $scope.itineraryImage = <span class="hljs-keyword">this</span>.activity.photo;
-    }
-    $scope.itinerary.push(<span class="hljs-keyword">this</span>.activity);
-  };
-
-  $scope.removeFromTrip = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> index = $scope.itinerary.indexOf(<span class="hljs-keyword">this</span>.activity);
-    $scope.itinerary.splice(index, <span class="hljs-number">1</span>);
-  };
-
-  $scope.saveItinerary = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      $scope.formCompleted = <span class="hljs-literal">true</span>;
+      $http.get(<span class="hljs-string">'/activities/'</span> + $scope.city + <span class="hljs-string">','</span> + $scope.state)
+        .success(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -159,12 +142,118 @@ if true, the form will hide and the right side of page will populate</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
+              <p>$scope.activities is an array of all the activities found by the api
+at the given destination</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          $scope.activities = data;
+        });
+    }
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>$scope.itinerary is an emtpy array that will contain all the activities the user will add
+to their trip</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.itinerary = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p><h4>$scope.addToTrip</h4> 
+Is a function that that adds an activity from the api to the users itinerary</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.addToTrip = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>The first item added to the itinerary will be the item whose photo is stored with the trip</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> ($scope.itinerary.length === <span class="hljs-number">0</span>) {
+      $scope.itineraryImage = <span class="hljs-keyword">this</span>.activity.photo;
+    }
+    $scope.itinerary.push(<span class="hljs-keyword">this</span>.activity);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p><h4>$scope.removeFromTrip</h4>
+Is a function that removes an item from the users itinerary</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.removeFromTrip = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> index = $scope.itinerary.indexOf(<span class="hljs-keyword">this</span>.activity);
+    $scope.itinerary.splice(index, <span class="hljs-number">1</span>);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p><h4>$scope.saveItinerary</h4>
+Is a function that creates an object containing all the relevant information to a users itinerary
+the object is sent to the server and DB through the factory function ActivitiesData.createTrip
+see the documentation on services.js for more information.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.saveItinerary = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
               <p>POST request to /trips with $scope.itinerary </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-    <span class="hljs-keyword">var</span> activityIds = $scope.itinerary.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">activity</span>) </span>{
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> activityIds = $scope.itinerary.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">activity</span>) </span>{
       <span class="hljs-keyword">return</span> activity._id;
     });
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"ACTIVITY:"</span>, activityIds);
@@ -178,6 +267,7 @@ if true, the form will hide and the right side of page will populate</p>
     <span class="hljs-keyword">var</span> trip = <span class="hljs-built_in">JSON</span>.stringify(tripObj);
     ActivitiesData.createTrip(trip);
   };
+
 });</pre></div></div>
             
         </li>

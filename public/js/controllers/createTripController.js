@@ -15,36 +15,50 @@ angular.module('app.create', ['app.services'])
     // 2. trigger the search
   $scope.startItinerary = function () {
     console.log('start itinerary');
-    if (!$scope.itineraryName || !$scope.city) {
+    // this if block ensures that the Itinerary Name City and State are present 
+    // before submitting the form
+    if (!$scope.itineraryName || !$scope.city || $scope.state) {
       return;
     } else {
-      // this removes the form
+      // $scope.formCompleted set to true removes the form and begins populating 
+      // the rest of the page.
       $scope.formCompleted = true;
       $http.get('/activities/' + $scope.city + ',' + $scope.state)
         .success(function (data) {
-          console.log("get/activities", data);
+          // $scope.activities is an array of all the activities found by the api
+          // at the given destination
           $scope.activities = data;
         });
+    }
   };
 
-  // $scope.itinerary is an array that contains 
+  // $scope.itinerary is an emtpy array that will contain all the activities the user will add
+  // to their trip
   $scope.itinerary = []; 
 
+  // <h4>$scope.addToTrip</h4> 
+  // Is a function that that adds an activity from the api to the users itinerary
   $scope.addToTrip = function(){
+    // The first item added to the itinerary will be the item whose photo is stored with the trip
     if ($scope.itinerary.length === 0) {
       $scope.itineraryImage = this.activity.photo;
     }
     $scope.itinerary.push(this.activity);
   };
 
+  // <h4>$scope.removeFromTrip</h4>
+  // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
     var index = $scope.itinerary.indexOf(this.activity);
     $scope.itinerary.splice(index, 1);
   };
 
+  // <h4>$scope.saveItinerary</h4>
+  // Is a function that creates an object containing all the relevant information to a users itinerary
+  // the object is sent to the server and DB through the factory function ActivitiesData.createTrip
+  // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-
     var activityIds = $scope.itinerary.map(function (activity) {
       return activity._id;
     });
@@ -59,4 +73,5 @@ angular.module('app.create', ['app.services'])
     var trip = JSON.stringify(tripObj);
     ActivitiesData.createTrip(trip);
   };
+
 });
