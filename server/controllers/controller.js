@@ -105,7 +105,6 @@ module.exports = {
   },
   accessTrip: function(req, res, next) {
     var tripId = req.params.id;
-    console.log("trip ID", tripId);
     var fullActivities = {};
     fullActivities.list = [];
     Trips.findById({ _id: tripId }, function(err, trip) {
