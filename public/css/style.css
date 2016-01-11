@@ -88,6 +88,8 @@ img.trip-img {
 }
 div.myTrips {
   width: 683px;
+  height: 75vh;
+  overflow: auto;
   margin: 0 auto;
   border: 1px solid black;
 }
