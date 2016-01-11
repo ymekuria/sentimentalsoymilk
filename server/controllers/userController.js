@@ -70,7 +70,6 @@ module.exports = {
       }
     });
   },
-
   findUser: function(req, res, next) {
     var username = req.url.split('/')[3]
     User.findOne({username:username},function(err, result){
@@ -120,7 +119,6 @@ module.exports = {
 
   addTrips : function(req, res, next) {
     var userId = req.url.split('/')[3];
-    console.log("Hit addTrips", userId)
     User.findById({ _id: userId },function(err, result){
       if (err) {
         console.log("Error finding username:", err);
@@ -130,11 +128,11 @@ module.exports = {
         newTrips.forEach(function(trip){
           currentTrips.push(trip);
         })
-        console.log("Update with:", currentTrips);
         result.trips = currentTrips;
         result.save(function(err) {
-          if (err) console.log(err);
-          console.log("addTrips result", result)
+          if (err) {
+            console.log(err);
+          }
           res.send(result);
         });       
       }
