@@ -41,12 +41,13 @@ div.playlist-info {
   height: 65px;
 }
 p.play-icon {
-  font-size: 30px;
+  font-size: 42px;
   position: relative;
-  bottom: 140px;
-  top: 140px;
+  top: -94px;
+  left: 53px;
   visibility: hidden;
   color: white;
+  z-index: 10;
 }
 span.playlist:hover .playlist-img {
   /*transform: scale(1.1);*/
@@ -56,16 +57,19 @@ span.playlist:hover .playlist-info {
   color: #C1C1C1;
   background-color: black;
 }
-span.playlist:hover .play-icon {
+span.playlist:hover p.play-icon {
   visibility: visible;
 }
 p.trip-name {
+  vertical-align: bottom;
   padding-left: 5px;
+  margin-top: -50px;
   font-weight: bold;
 }
 p.trip-destination {
   margin-top: -4px;
   font-size: 11px;
+  margin-top: -8px;
   padding-left: 5px;
 }
 img.GeneratedImage {
