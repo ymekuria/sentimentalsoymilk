@@ -6,7 +6,6 @@ var key = require('../env/config')
 var async = require('async');
 
 
-//<h3> filterTripData </h3> 
 
 var filterTripData = function(responseObj) {
   return responseObj.reduce(function(totalData, item) { 
@@ -29,7 +28,8 @@ var filterTripData = function(responseObj) {
 };
 
 
-// <h3> parseCityName </h3>
+
+// <h4> parseCityName </h4>
 // Accepts the decoded request url, reformats it and 
 // returns a string of the city name 
 var parseCityName = function(cityRequest) {
@@ -47,7 +47,7 @@ var parseCityName = function(cityRequest) {
 }
 
 module.exports = {
-  //<h3> searchStoredData </h3> 
+  //<h4> searchStoredData </h4> 
   // Parses the city name from the request url param and 
   // checks to see if our database containss that city.
   // If we have a record for that city that is sent in the response, 
@@ -76,7 +76,7 @@ module.exports = {
     });
   },
 
-  //<h3> fetchCityData </h3> 
+  //<h4> fetchCityData </h4> 
   // Fetches data from the Foursquare API if the data is not 
   // already stored in our database
   // Method: GET
@@ -100,7 +100,7 @@ module.exports = {
   }, 
 
 
-  //<h3>  saveCityData </h3> 
+  //<h4>  saveCityData </h4> 
   // Adds the searched city to the database
   // Model: TripItems
   saveCityData: function(results, next) {
@@ -111,7 +111,7 @@ module.exports = {
     });    
   },
 
-  //<h3> createTrip </h3> 
+  //<h4> createTrip </h4> 
   // Accepts a JSON object to be stored.
   // Example : tripObj = {
     //   name: name,
@@ -137,12 +137,23 @@ module.exports = {
       res.json(results);
     });
   },
+
+  //<h3> GetAllTrips </h3> 
+  // Returns a JSON of all the data present in the database
+  // Method: Get
+  // Route : /trips
   getAllTrips: function (req, res, next) {
     Trips.find(function (err, results) {
       console.log(results);
       res.json(results)
     });
   },
+
+  //<h3> accessTrip </h3> 
+    // Returns a trip object with name, destination, and actitivites properties
+    // Acitivties is an array
+    // Method: Get
+    // Route : /trips/*
   accessTrip: function(req, res, next) {
     var tripId = req.params.id;
     var fullActivities = {};
