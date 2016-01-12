@@ -1,9 +1,10 @@
 angular.module('app.auth', ['app.services'])
 
+// Auth is a factory/service from app.services
 .controller('AuthController', function ($scope, $http, $location, Auth) {
 
-
-  // login function to be called when input form submitted
+  // <h4>$scope.login</h4>
+  // login function to be called when login input form submitted
   $scope.login = function (user) {
     $scope.error = '';
     if(!user) {
@@ -13,6 +14,8 @@ angular.module('app.auth', ['app.services'])
       }
     } 
     console.log("Attempting to login", userData)
+    // <h4> Auth.login </h4>
+    // Is a function that posts to /login to log the user in
     Auth.login(userData)
       .then(function(message){
           $scope.clearFields();
@@ -20,6 +23,9 @@ angular.module('app.auth', ['app.services'])
       })
   };
 
+
+  // <h4> Auth.signup </h4>
+  // Is a function that posts to /signup to sign up
   // sign up function to be called when input form submitted
   $scope.signup = function () {
     $scope.signUpError = '';
@@ -28,6 +34,8 @@ angular.module('app.auth', ['app.services'])
       "password":$scope.signUpPassword
     }
     console.log('User entered signup data',userData)
+    // <h4> Auth.signup </h4>
+    // Is a function that posts to /signup to log the user in
     Auth.signup(userData)
     .then(function(message){
       $scope.clearFields();
@@ -35,6 +43,8 @@ angular.module('app.auth', ['app.services'])
     })
   };
 
+  // <h4>$scope.clearFields</h4>
+  // function that clears all the text input fields
   $scope.clearFields = function (){
     $scope.signUpUsername='';
     $scope.signUpPassword='';
