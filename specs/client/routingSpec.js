@@ -26,4 +26,16 @@ describe('Routing', function () {
     expect($route.routes['/login'].templateUrl).to.equal('./js/templates/login.html');
   });
 
+  it('Should have /create route, template, and controller', function () {
+    expect($route.routes['/create']).to.be.defined;
+    expect($route.routes['/create'].controller).to.equal('CreateTripController');
+    expect($route.routes['/create'].templateUrl).to.equal('./js/templates/createTrip.html');
+  });
+
+  it('Should have /myTrips route, template, and controller', function () {
+    expect($route.routes['/myTrips']).to.be.defined;
+    expect($route.routes['/myTrips'].controller).to.equal('MyTripsController');
+    expect($route.routes['/myTrips'].templateUrl).to.equal('./js/templates/mytrips.html');
+  });
+
 });

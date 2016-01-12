@@ -17,12 +17,12 @@ module.exports = function (config) {
       'public/lib/angular-mocks/angular-mocks.js',
 
       // our app code
-      'public/js/*',
+      'public/js/**/*.js',
 
       // our spec files - in order of the README
-      // 'specs/client/authControllerSpec.js',
-      // 'specs/client/servicesSpec.js',
-      'specs/client/routingSpec.js'
+      'specs/client/routingSpec.js',
+      'specs/client/servicesSpec.js',
+      'specs/client/createTripControllerSpec.js'
 
     ],
 

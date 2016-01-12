@@ -8,9 +8,9 @@ var KarmaServer = require('karma').Server;
 // the paths to our app files
 var paths = {
   // all our client app js files, not including 3rd party js files
-  scripts: ['client/app/**/*.js'],
-  html: ['client/app/**/*.html', 'client/index.html'],
-  styles: ['client/styles/style.css'],
+  scripts: ['public/js/**/*.js'],
+  html: ['public/js/templates/*.html', 'public/index.html'],
+  styles: ['public/css/style.css'],
   test: ['specs/**/*.js']
 };
 

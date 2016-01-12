@@ -81,19 +81,6 @@ angular.module('app.services',[])
     .catch(function(err){
       console.log("Error Getting Individual Trip Data: ", err)
     })
-  }
-
-  // <h4>data.postActivity</h4>
-  // saves an activity to the db
-  data.postActivity = function(activityData){
-    //activityData is a JSON object
-    $http.post('db/activities/', activityData)
-    .then(function(){
-      console.log("Activity Created");
-    })
-    .catch(function(err){
-      console.log("Error Creating Activity: ", err)
-    })
   };
 
   // <h4>data.createTrip</h4>
