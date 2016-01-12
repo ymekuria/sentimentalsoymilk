@@ -1,11 +1,19 @@
+// these services can be loaded into any controller by including 'app.services' in the
+// angular dependencies
 angular.module('app.services',[])
 
+// Include ActivitiesData in controller paramters to access these factory
+// functions
 .factory('ActivitiesData', function($http, $location){
+  // data stores all of the service functions
   var data = {};
   data.searchedCity = {};
   data.cityCache = {};
-  // $scope.user = {};
 
+  // <h4>data.getActivities</h4>
+  // Function that sends a get request to /activities/`cityname`
+  // and retrieves 30 foursquare top rated activities for the city
+  // returns a promise
   data.getActivities = function(city){
     //checks if the city has been searched before
     if(data.searchedCity[city]){
@@ -28,6 +36,9 @@ angular.module('app.services',[])
     })
   };
 
+  // <h4>data.getTrips</h4>
+  // Function that sends a get request to /trips and retrieves
+  // all trips from the db
   data.getTrips = function(){
     return $http.get('/trips')
     .then(function(results){
@@ -38,6 +49,9 @@ angular.module('app.services',[])
     })
   };
 
+  // <h4>data.getUsersTrips</h4>
+  // Function that retrieves all of one users stored trips
+  // sends get request to /trips/`userId`
   data.getUsersTrips = function(userId, callback){
     $http.get('/trips/' + userId)
     .then(function(results){
@@ -52,12 +66,15 @@ angular.module('app.services',[])
     })
   };
 
+  // <h4>data.getIndividualTrip</h4>
+  // pulls an trip from the db with the tripId
+  // sends get request to /trips/`tripId`
   data.getIndividualTrip = function(tripId){
     $http.get('/trips/' + tripId)
     .then(function(results){
-      //our server calls a get request to the foursquare api
-      //posts it to our database
-      //gets data back out of our database and returns it
+      // server calls a get request to the foursquare api
+      // posts it to our database
+      // gets data back out of our database and returns it
       console.log('Trip Result for ' + tripId +': ' + results)
       callback(results);
     })
@@ -66,6 +83,8 @@ angular.module('app.services',[])
     })
   }
 
+  // <h4>data.postActivity</h4>
+  // saves an activity to the db
   data.postActivity = function(activityData){
     //activityData is a JSON object
     $http.post('db/activities/', activityData)
@@ -77,6 +96,8 @@ angular.module('app.services',[])
     })
   };
 
+  // <h4>data.createTrip</h4>
+  // creates a trip and stores it to the db
   data.createTrip = function(tripData){
     //tripData is a JSON object
     $http.post('/trips', tripData)
@@ -89,19 +110,9 @@ angular.module('app.services',[])
     })
   };
 
-  // data.saveTrip = function(tripId,tripData){
-  //   //tripData is a JSON object
-  //   $http.put('/trips/' + tripId, tripData)
-  //   .then(function(){
-  //     console.log('Trip Saved: ', tripID)
-  //   })
-  //   .catch(function(err){
-  //     console.log("Error Saving Trip: ", err)
-  //   })
-  // }
-
-  // data.getAllPublicTrips = function(){}
-
+  // <h4>data.getTripActivities</h4>
+  // retrieves an object containing all activities and data related
+  // to the trip id
   data.getTripActivities = function(id, cb){
    return $http.get('/trips/' + id)
    .then(function(results){
@@ -119,6 +130,9 @@ angular.module('app.services',[])
   return data;
 })
 
+
+
+// this factory is for authentication which is not impemented in the app yet.
 .factory('Auth', function($http, $location){
   var auth = {};
   auth.user = { password : '' };
