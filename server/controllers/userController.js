@@ -6,6 +6,7 @@ var request = require('request');
 var bluebird = require('bluebird');
 
 module.exports = {
+  
   authCheck : function(req, res, next){
     if(req.isAuthenticated()) { return next(); }
     res.redirect('/login');
