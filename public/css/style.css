@@ -208,6 +208,6 @@ body, html {
   text-align: center;
 }
 
-.navbar-header {
+#title {
   float :right;
 }
