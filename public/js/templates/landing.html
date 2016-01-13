@@ -9,13 +9,21 @@
         <md-option ng-value="t.title" data-ng-repeat="t in widget">{{ t.title }}</md-option>
     </md-select>
     {{test}} -->
-
+<!--  <md-button ng-click="searchIngredient(ingredient)" ng-value="timeOptions" ng-repeat="time in timeOptions" >{{time}}
+          </md-button> -->
 
 <!-- dropdown test -->
 <div >
-  <md-select ng-model="timeOptions">
-    <md-option ng-value="time" ng-repeat="time in timeOptions">{{ time }}</md-option>
-  </md-select>
+  <md-input-container>
+    <label>How Much Time do you have?</label>
+    <md-select ng-model="timeOptions">
+    <md-menu-content width="4">
+    <md-optgroup label="Time">
+    <md-option ng-value="" ng-repeat="time in timeOptions">{{ time }}</md-option>
+    </md-optgroup>
+    </md-menu-content>
+    </md-select>
+  </md-input-container>
 </div>
 
 <!-- dropdown test -->
