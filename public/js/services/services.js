@@ -2,6 +2,45 @@
 // angular dependencies
 angular.module('app.services',[])
 
+//factory for ratings, methods for posting and getting playlist rating
+.factory('Ratings', function($http) {
+  var postRatings = function(rating, playlistid) {
+    return $http({
+        method: 'POST',
+        //NEED THE ROUTE FOR ADDING RATINGS, may need playlist id
+        //playlist id stored as scope id on tripcontroller
+        url: '/api/ratings/' + playlistid,
+        //sending the rating to the database
+        data: rating
+      }).success(function(data) {
+        console.log('made request');
+      });
+  };
+
+  //method for getting all the ratings for a particular playlist
+  //this will be the value of a rating scope variable for controller
+  //and will replace the foursquare rating
+  //INTERACTS WITH LANDING CONTROLLER/VIEW
+  var getPlaylistRating = function(playlistid) {
+    return $http({
+        method: 'GET',
+        //need to figure out this url, the query will be for all
+        //ratings with a particular playlist id. 
+        url: '/api/ratings/' + playlistid,
+        //sending the rating to the database
+      }).success(function(data) {
+        //I'm envisioning that data is all the ratings for the PL
+        //can manipulate it somehow (average). 
+        return data;
+      });
+  };
+
+  return {
+    postRatings: postRatings,
+    getPlaylistRating: getPlaylistRating
+  }
+})
+
 // Include ActivitiesData in controller paramters to access these factory
 // functions
 .factory('ActivitiesData', function($http, $location){
