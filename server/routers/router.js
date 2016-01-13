@@ -1,5 +1,10 @@
+//MONGO
+
 var controller = require('../controllers/controller.js');
 var userController = require('../controllers/userController.js');
+
+//MONGO
+
 var dbController = require('../models/dbroutes.js');
 
 module.exports = function(app, express) {

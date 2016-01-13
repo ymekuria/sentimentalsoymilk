@@ -1,49 +1,51 @@
-var Q = require('q');
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var SALT_WORK_FACTOR = 10;
 
-var UserSchema = mongoose.Schema({
-    username:   String,
-    password:  String,
-    trips: [{ type: mongoose.Schema.ObjectId,
-    ref: 'Trip'
-  }]
-});
+//MONGO DB//
+// var Q = require('q');
+// var mongoose = require('mongoose');
+// var bcrypt = require('bcrypt-nodejs');
+// var SALT_WORK_FACTOR = 10;
 
-UserSchema.pre('save', function (next) {
-  var user = this;
+// var UserSchema = mongoose.Schema({
+//     username:   String,
+//     password:  String,
+//     trips: [{ type: mongoose.Schema.ObjectId,
+//     ref: 'Trip'
+//   }]
+// });
 
-  // only hash the password if it has been modified (or is new)
-  if (!user.isModified('password')) {
-    return next();
-  }
+// UserSchema.pre('save', function (next) {
+//   var user = this;
 
-  // generate a salt
-  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-    if (err) {
-      return next(err);
-    }
+//   // only hash the password if it has been modified (or is new)
+//   if (!user.isModified('password')) {
+//     return next();
+//   }
 
-    // hash the password along with our new salt
-    bcrypt.hash(user.password, salt, null, function (err, hash) {
-      if (err) {
-        return next(err);
-      }
+//   // generate a salt
+//   bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+//     if (err) {
+//       return next(err);
+//     }
 
-      // override the cleartext password with the hashed one
-      user.password = hash;
-      user.salt = salt;
-      next();
-    });
-  });
-});
+//     // hash the password along with our new salt
+//     bcrypt.hash(user.password, salt, null, function (err, hash) {
+//       if (err) {
+//         return next(err);
+//       }
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    console.log("Comparing password")
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
-module.exports = mongoose.model('User', UserSchema);
+//       // override the cleartext password with the hashed one
+//       user.password = hash;
+//       user.salt = salt;
+//       next();
+//     });
+//   });
+// });
+
+// UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+//     console.log("Comparing password")
+//     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+//         if (err) return cb(err);
+//         cb(null, isMatch);
+//     });
+// };
+// module.exports = mongoose.model('User', UserSchema);

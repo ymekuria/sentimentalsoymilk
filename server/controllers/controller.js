@@ -1,10 +1,9 @@
 // var User = require('../models/users.js');
-var Trips = require('../models/trips.js');
-var TripItems = require('../models/tripItem.js');
+var db = require('../models/dbconnect.js');
+
 var request = require('request');
 var key = require('../env/config')
 var async = require('async');
-
 
 
 var filterTripData = function(responseObj) {
@@ -12,7 +11,7 @@ var filterTripData = function(responseObj) {
     var location = item.venue.location;
     var photoURL = item.venue.featuredPhotos.items[0];
     var notes = item.tips === undefined ? '' : item.tips[0].text; 
-    var tripItem = {
+    var Activity = {
       name: item.venue.name,
       address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
       city: location.city,
@@ -22,7 +21,7 @@ var filterTripData = function(responseObj) {
       photo: photoURL.prefix + '300x300' + photoURL.suffix,
       url: item.venue.url
     };
-    totalData.push(tripItem); 
+    totalData.push(Activity); 
     return totalData;
   }, []);
 };
@@ -59,7 +58,7 @@ module.exports = {
   searchStoredData: function(req, res, next) {
     var city = parseCityName(decodeURI(req.url.split('/')[2]));
     console.log(city);
-    TripItems.find({ city: city }, function(err, list) {
+    db.Playlist.find({ area: city }, function(err, list) {
       if (list.length < 1) {
         // if (list.length < 1) {
         // City not cached; fetching data
@@ -102,9 +101,9 @@ module.exports = {
 
   //<h4>  saveCityData </h4> 
   // Adds the searched city to the database
-  // Model: TripItems
-  saveCityData: function(results, next) {
-    return TripItems.create(results, function(err, results) {
+  // Model: Activitys
+  saveCityData: function(results, next) { 
+    return db.Activity.create(results, function(err, results) {
       if (err) {
         console.log(err);
       }
@@ -126,11 +125,12 @@ module.exports = {
   createTrip: function(req, res, next) {
     var playlist = {
       name: req.body.name,
-      destination: [req.body.city, req.body.state],
+      area: [req.body.city, req.body.state],
+      timeReq: req.body.time,
       activities: req.body.activities,
       image: req.body.image
     };
-    Trips.create(playlist, function(err, results) {
+    db.Playlist.create(playlist, function(err, results) {
       if (err) {
         console.log(err);
       }
@@ -143,7 +143,7 @@ module.exports = {
   // Method: Get
   // Route : /trips
   getAllTrips: function (req, res, next) {
-    Trips.find(function (err, results) {
+    db.Playlist.find(function (err, results) {
       console.log(results);
       res.json(results)
     });
@@ -158,7 +158,7 @@ module.exports = {
     var tripId = req.params.id;
     var fullActivities = {};
     fullActivities.list = [];
-    Trips.findById({ _id: tripId }, function(err, trip) {
+    db.Trips.findById({ _id: tripId }, function(err, trip) {
       if (err) { 
         console.log("findById error", err)
         return err; 
@@ -172,9 +172,9 @@ module.exports = {
       fullActivities.destination = trip.destination;
       var activityLength = trip.activities.length;
       trip.activities.forEach(function(tripId){
-        TripItems.findById({ _id: tripId }, function(err, trip) {
+        db.Activity.findById({ _id: tripId }, function(err, trip) {
           if (err) {
-            console.log("Error finding TripItems by tripId", err)
+            console.log("Error finding Activitys by tripId", err)
           } else {
             fullActivities.list.push(trip);
             if(activityLength === fullActivities.list.length){
