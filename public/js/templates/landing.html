@@ -1,35 +1,26 @@
-<h2 class="text-center">Soy Milk</h2>
-<button href="/#create" class="text-center" style="display: block">Make a Playlist</button>
-
-<h1 class="page-title">Popular Playlists:</h1>
-
-<!-- dropdown test -->
-<!-- <h1>md-select demo</h1>
-    <md-select ng-model="widgetType" >
-        <md-option ng-value="t.title" data-ng-repeat="t in widget">{{ t.title }}</md-option>
-    </md-select>
-    {{test}} -->
-<!--  <md-button ng-click="searchIngredient(ingredient)" ng-value="timeOptions" ng-repeat="time in timeOptions" >{{time}}
-          </md-button> -->
+<h2 class="text-center">Fun Finder</h2>
+<!-- <button href="/#create" class="text-center" style="display: block">Make a Playlist</button> -->
+<md-button href="/#create" class="text-center" style="display: inline-block">Make a Playlist</md-button>
+<!-- <h1 class="page-title">Popular Playlists:</h1> -->
 
 <!-- dropdown test -->
 <div >
   <md-input-container>
     <label>How Much Time do you have?</label>
-    <md-select ng-model="timeOptions">
+    <md-select ng-model="time">
     <md-menu-content width="4">
-    <md-optgroup label="Time">
-    <md-option ng-value="" ng-repeat="time in timeOptions">{{ time }}</md-option>
-    </md-optgroup>
+    <!-- creating a button for each select item and passing the selected value to the searchTime function -->
+    <md-button ng-click="searchTime(time)" ng-value = "time" ng-repeat="time in timeOptions">{{ time }}</md-button>
     </md-menu-content>
     </md-select>
   </md-input-container>
 </div>
 
+
 <!-- dropdown test -->
-
-<input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
-
+<md-input-container>
+  <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
+</md-input-container>
 <div class="myTrips" style="background-color: white">
   <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
     <div class="playlist-img">

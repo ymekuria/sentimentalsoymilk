@@ -5,7 +5,16 @@ angular.module('app.landing', ['app.services'])
 
 .controller('LandingController', function ($scope, $http, Ratings, ActivitiesData, $location) {
 
+
   $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
+  // this stores the value of what time duration the user wants to filter for use in a get request along with location info.
+  var searchedTime;
+ 
+  $scope.searchTime = function (time) {
+    console.log('you selected', time);
+
+
+  }
 
  
   // <h4>ActivitiesData.getTrips()</h4>
