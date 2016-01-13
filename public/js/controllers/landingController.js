@@ -7,7 +7,7 @@ angular.module('app.landing', ['app.services'])
 
   $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
 
-  $scope.widgetType = 'Line';
+ 
   // <h4>ActivitiesData.getTrips()</h4>
   // function that gets all the trips to populate the landing page
   // trips are stored in $scope.tripResults
