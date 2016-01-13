@@ -8,12 +8,18 @@ angular.module('app.trip', ['app.services'])
   $scope.id = $routeParams.id;
   console.log($scope.id)
 
+
+
   $scope.submitRating = function() {
     Ratings.postRatings($scope.rating, $scope.id)
       .then(function() {
         console.log('made request'); 
       })
+      .catch(function(){
+        console.log($scope.rating);
+      })
   }
+
 
   // ActivitiesData.getTripActivities returns and object containing
   // the details for each activity stored in this trip
