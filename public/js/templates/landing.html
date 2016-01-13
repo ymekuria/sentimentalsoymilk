@@ -1,7 +1,24 @@
 <h2 class="text-center">Soy Milk</h2>
-<a href="/#create" class="text-center" style="display: block">Make a Playlist</a>
+<button href="/#create" class="text-center" style="display: block">Make a Playlist</button>
 
 <h1 class="page-title">Popular Playlists:</h1>
+
+<!-- dropdown test -->
+<!-- <h1>md-select demo</h1>
+    <md-select ng-model="widgetType" >
+        <md-option ng-value="t.title" data-ng-repeat="t in widget">{{ t.title }}</md-option>
+    </md-select>
+    {{test}} -->
+
+
+<!-- dropdown test -->
+<div >
+  <md-select ng-model="timeOptions">
+    <md-option ng-value="time" ng-repeat="time in timeOptions">{{ time }}</md-option>
+  </md-select>
+</div>
+
+<!-- dropdown test -->
 
 <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
 
