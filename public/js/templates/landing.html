@@ -25,20 +25,38 @@
 <!-- dropdown test -->
 
 <div class="myTrips" style="background-color: white">
-  <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
+  <span class="playlist" ng-repeat="trip in searchResults" ng-click="viewTrip(searchResults.indexOf(trip))">
     <div class="playlist-img">
       <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
     </div>
     <div class="playlist-info">
       <p class="glyphicon glyphicon-play-circle play-icon"></p>
 
+      <p class="trip-name">{{trip.name}}</p>
 
-
-      <p class="trip-name">{{trip.name}}yoni</p>
       <!-- this should work once we add the timReq to the s -->
-      <p>{{trip.timeReq}}</p> 
+      <p>{{trip.duration}}</p> 
+      <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+    </div>
+  </span>
+</div>
+
+<!-- 
+
+
+
+<div class="myTrips" style="background-color: white">
+  <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
+    <div class="playlist-img">
+      <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
+    </div>
+    <div class="playlist-info">
+      <p class="glyphicon glyphicon-play-circle play-icon"></p>
+      <p class="trip-name">{{trip.name}}</p>
+      this should work once we add the timReq to the s -->
+      <!-- <p>{{trip.timeReq}}</p> 
       <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
 
     </div>
   </span>
-</div>
+</div> --> 

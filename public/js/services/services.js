@@ -126,6 +126,7 @@ angular.module('app.services',[])
   // creates a trip and stores it to the db
   data.createTrip = function(tripData){
     //tripData is a JSON object
+    console.log('Trip inside of create', tripData);
     $http.post('/trips', tripData)
     .then(function(){
       console.log("Trip Created");
@@ -152,6 +153,18 @@ angular.module('app.services',[])
      console.log("Error Getting User Trip Data: ", err)
    })
  };
+
+ data.getSearchedTrips = function (obj) {
+  return $http({
+    method: 'GET',
+    url: '/api/trips',
+    params: {location: obj.location,
+              duration: obj.duration}
+  }).success(function(data){
+    return data;
+  })
+
+ }
 
   return data;
 })

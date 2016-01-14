@@ -18,7 +18,6 @@ angular.module('app.create', ['app.services'])
     // 1. hide the form
     // 2. trigger the search
   $scope.startItinerary = function () {
-    console.log('start itinerary');
     // this if block ensures that the Itinerary Name City and State are present 
     // before submitting the form
     if (!$scope.itineraryName || !$scope.city || !$scope.state) {
@@ -38,8 +37,8 @@ angular.module('app.create', ['app.services'])
   
   // this function saves the value of the clicked dropdown by the user for time duration   
   $scope.saveTime = function(time) {
-    savedDuration = time;
-    console.log('saveDuration', savedDuration)
+    $scope.duration = time;
+    console.log('duration', typeof $scope.duration)
   }
 
   // $scope.itinerary is an empty array that will contain all the activities the user will add
@@ -75,12 +74,16 @@ angular.module('app.create', ['app.services'])
     var activityIds = $scope.itinerary.map(function (activity) {
       return activity.id;
     });
+
+    console.log("ACTIVITY:", activityIds);
+    console.log('duration inside of save', $scope.duration)
+
     var tripObj = {
       creator: $scope.creator, // added this field to give credit to the maker of a playlist
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      timeReq: $scope.duration, // this property is the duration inputed from the dropdown
+      duration: $scope.duration, // this property is the duration inputed from the dropdown
       activities: activityIds,
       image: $scope.itineraryImage
     }

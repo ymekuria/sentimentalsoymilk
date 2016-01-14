@@ -9,10 +9,24 @@ angular.module('app.landing', ['app.services'])
   $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
   // this stores the value of what time duration the user wants to filter for use in a get request along with location info.
   var searchedTime;
+  $scope.time;
+
+
+  //CREATE AN object to send time and location to the api
+  $scope.searchData = {};
   
   $scope.searchTime = function (time) {
     console.log('you selected', time);
+    
 
+  };
+
+  $scope.filteredByTimeTrips = function () {
+    // make a get 
+    ActivitiesData.getSearchedTrips($scope.searchData)
+      .then(function(trips){
+        $scope.searchResults = trips.data;  
+      })
 
   }
 
@@ -24,7 +38,7 @@ angular.module('app.landing', ['app.services'])
   .then(function(results){
     console.log('TRIP RESULTS', results.data)
     $scope.tripResults = results.data;
-    console. log('trip results', $scope.tripResults);
+    console. log('trip results', results.data);
   })
 
   // Redirect to view playlist information

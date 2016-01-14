@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 var tripsSchema = mongoose.Schema({
   creator: String,
   name: String,
+  duration: String,
   destination: Array,
   image: String,
-  timeReq: String,
+  
 
   //keyword: drinking, bars
   //users
