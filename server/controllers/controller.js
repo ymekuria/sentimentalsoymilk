@@ -137,6 +137,7 @@ module.exports = {
 
       image: req.body.image
     };
+    
     db.Playlist.create(playlist)
     .then(function(result) {
       result.setActivities(playlist.activities)
