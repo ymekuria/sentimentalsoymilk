@@ -4,6 +4,8 @@ angular.module('app.create', ['app.services'])
 
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
 .controller('CreateTripController', function ($scope, $http, ActivitiesData) {
+
+  $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show

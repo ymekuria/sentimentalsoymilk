@@ -25,7 +25,7 @@
 </nav>
 
 <!-- Content -->
-  <h1 class="page-title">Your Wishlist{{food}}</h1>
+  <h1 class="page-title">Your Wishlist</h1>
   <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
   <div class="myTrips" style="background-color: white">
     <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
@@ -41,9 +41,10 @@
 
       </div>
       <div>
-        <md-button class ="md-raised" ng-click="removePlaylist()">Remove</md-button> 
+        <md-button class ="md-raised" ng-click="removePlaylist(trip)">Remove</md-button> 
      </div>
     </span>
+
   </div> 
 
 
