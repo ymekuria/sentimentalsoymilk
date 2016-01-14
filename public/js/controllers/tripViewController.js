@@ -8,7 +8,7 @@ angular.module('app.trip', ['app.services'])
   $scope.id = $routeParams.id;
   console.log($scope.id)
 
-
+  
 
   $scope.submitRating = function() {
     Ratings.postRatings($scope.rating, $scope.id)

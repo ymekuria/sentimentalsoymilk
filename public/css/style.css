@@ -216,6 +216,11 @@ body, html {
   font-size: 30px;
 }
 
+.rating-container {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
 .starRating:not(old){
   display        : inline-block;
   width          : 7.5em;
