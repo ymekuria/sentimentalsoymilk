@@ -27,6 +27,8 @@
     "underscore": "~1.8.3",
     "angular-mocks": "~1.4.8",
     "bootstrap": "~3.3.6",
-    "five-star-rating": "~1.0.0"
+
+    "angular-material": "~1.0.1",
+    "Material Design Icon": "material-design-icon#~0.1.1"
   }
 }

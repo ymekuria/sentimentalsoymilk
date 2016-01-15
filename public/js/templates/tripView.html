@@ -26,10 +26,13 @@
 </nav>
 
 <!-- Content -->
+<div class="page-title">
   <h2 class="page-title">{{name}}</h2>
+
 
   <h4 class="page-title">{{destination}}</h4>
   <h4 class="page-title">{{destination[0]}}, {{destination[1]}}</h4>
+
   <div class="rating-container">
     <h5>Rate This Playlist</h1>
     <span class="starRating" ng-click="submitRating()">
@@ -45,6 +48,7 @@
       <label for="rating1"></label>
     </span>
   </div>
+  <md-button  ng-click ="addToWishList()" class="btn btn-success">Add to Wishlist</md-button>
 
 <!--<script>
    angular.module('valueExample', [])
@@ -66,6 +70,8 @@
    <div>You chose {{my.favorite}}</div>
  </form> -->
  
+
+
 
 
 <div class="tripview-container">

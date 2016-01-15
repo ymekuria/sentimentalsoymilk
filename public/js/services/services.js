@@ -126,6 +126,7 @@ angular.module('app.services',[])
   // creates a trip and stores it to the db
   data.createTrip = function(tripData){
     //tripData is a JSON object
+    console.log('Trip inside of create', tripData);
     $http.post('/trips', tripData)
     .then(function(){
       console.log("Trip Created");
@@ -152,6 +153,31 @@ angular.module('app.services',[])
      console.log("Error Getting User Trip Data: ", err)
    })
  };
+// this method gets a list of playlist given search parameters of location and duration
+ data.getSearchedTrips = function (obj) {
+  return $http({
+    method: 'GET',
+    url: '/api/trips', // need to coordinate with anthony about this endpoint
+    params: {location: obj.location,
+              duration: obj.duration}
+  }).success(function(data){
+    return data;
+  });
+
+ };
+
+// this function adds playlists to a users wishlist initially passing an array of playlists to the api
+// we may need to change this to make a post request with a single playlist
+ data.addItemsToWishList = function (playlistArr) {
+   return $http({
+    method: 'POST',
+    url: '/api/wishlist', // need to coordinate with anthony about this endpoint
+    data: playlistArr
+  }).success(function(data){
+    return data;
+  }); 
+
+ }
 
   return data;
 })

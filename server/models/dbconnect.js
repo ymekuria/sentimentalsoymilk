@@ -8,6 +8,7 @@ var dbHost = process.env.DBHOST,
     
     passportLocalSequelize = require('passport-local-sequelize');
 
+
 var db = new Sequelize("soymilk", "root", "", {
     host: dbHost,
 });

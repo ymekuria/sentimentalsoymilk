@@ -4,17 +4,20 @@ angular.module('app.create', ['app.services'])
 
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
 .controller('CreateTripController', function ($scope, $http, ActivitiesData) {
+
+  $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
+
+  var savedDuration;
   
   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
   $scope.startItinerary = function () {
-    console.log('start itinerary');
     // this if block ensures that the Itinerary Name City and State are present 
     // before submitting the form
     if (!$scope.itineraryName || !$scope.city || !$scope.state) {
@@ -31,6 +34,12 @@ angular.module('app.create', ['app.services'])
         });
     }
   };
+  
+  // this function saves the value of the clicked dropdown by the user for time duration   
+  $scope.saveTime = function(time) {
+    $scope.duration = time;
+    console.log('duration', typeof $scope.duration)
+  }
 
   // $scope.itinerary is an empty array that will contain all the activities the user will add
   // to their trip
@@ -50,7 +59,10 @@ angular.module('app.create', ['app.services'])
   // <h4>$scope.removeFromTrip</h4>
   // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
+
+    console.log('this.activity', this.activity);
     var index = $scope.itinerary.indexOf(this.activity);
+
     $scope.itinerary.splice(index, 1);
   };
 
@@ -63,10 +75,16 @@ angular.module('app.create', ['app.services'])
     var activityIds = $scope.itinerary.map(function (activity) {
       return activity.id;
     });
+
+    console.log("ACTIVITY:", activityIds);
+    console.log('duration inside of save', $scope.duration)
+
     var tripObj = {
+      creator: $scope.creator, // added this field to give credit to the maker of a playlist
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
+      duration: $scope.duration, // this property is the duration inputed from the dropdown
       activities: activityIds,
       image: $scope.itineraryImage
     }

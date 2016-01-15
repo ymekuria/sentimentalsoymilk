@@ -6,7 +6,8 @@
 // app.services loads all factory/service functionality
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
-angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
+// ngMaterial is for the material design library
+angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.wishlist','app.services', 'app.mytrips', 'ngRoute','ngMaterial'])
 
 
 .config(function ($routeProvider) {
@@ -35,6 +36,10 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
     .when('/myTrips', {
       templateUrl: './js/templates/mytrips.html',
       controller: 'MyTripsController'
+    })
+    .when('/wishlist', {
+      templateUrl: './js/templates/wishList.html',
+      controller: 'WishListController'
     })
     // splash page
     .when('/splash', {

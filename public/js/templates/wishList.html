@@ -25,7 +25,7 @@
 </nav>
 
 <!-- Content -->
-  <h1 class="page-title">Playlists</h1>
+  <h1 class="page-title">Your Wishlist</h1>
   <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
   <div class="myTrips" style="background-color: white">
     <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
@@ -33,12 +33,20 @@
         <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
       </div>
       <div class="playlist-info">
+        
         <p class="glyphicon glyphicon-play-circle play-icon"></p>
         <p class="trip-name">{{trip.name}}</p>
-        <p class="trip-rating">Rating: 3.4{{trip.rating}} <!--get this rating from joey-->
+        <p class="trip-rating">Rating: 3.4{{trip.rating}} <!--get this rating from joey
         <p class="trip-duration">{{trip.duration}}</p>
         <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+
+
       </div>
+      <div>
+        <md-button class ="md-raised" ng-click="removePlaylist(trip)">Remove</md-button> 
+     </div>
     </span>
-  </div>  
+
+  </div> 
+
 
