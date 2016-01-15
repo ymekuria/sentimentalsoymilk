@@ -21,6 +21,7 @@ angular.module('app.landing', ['app.services'])
 
   };
 
+  // this method makes a get request to the api for playlists filtered by user inputs of location and duration
   $scope.filteredByTimeTrips = function () {
     // make a get 
     ActivitiesData.getSearchedTrips($scope.searchData)
