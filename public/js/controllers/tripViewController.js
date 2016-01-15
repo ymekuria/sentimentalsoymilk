@@ -2,11 +2,24 @@ angular.module('app.trip', ['app.services'])
 
 // ActivitiesData is a factory/service loaded from app.services
 // $routeParams is used to get the trip mongoose _.id
-.controller('TripController', function ($scope, $http, ActivitiesData, $routeParams) {
+.controller('TripController', function ($scope, $http, Ratings, ActivitiesData, $routeParams) {
 
   
   $scope.id = $routeParams.id;
   console.log($scope.id)
+
+  
+
+  $scope.submitRating = function() {
+    Ratings.postRatings($scope.rating, $scope.id)
+      .then(function() {
+        console.log('made request'); 
+      })
+      .catch(function(){
+        console.log($scope.rating);
+      })
+  }
+
 
   // ActivitiesData.getTripActivities returns and object containing
   // the details for each activity stored in this trip
