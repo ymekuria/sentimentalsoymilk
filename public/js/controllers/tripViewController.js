@@ -4,8 +4,9 @@ angular.module('app.trip', ['app.services'])
 // $routeParams is used to get the trip mongoose _.id
 .controller('TripController', function ($scope, $http, ActivitiesData, $routeParams) {
 
-  // $scope.id stores the trip mongoose _.id
+  
   $scope.id = $routeParams.id;
+  console.log($scope.id)
 
   // ActivitiesData.getTripActivities returns and object containing
   // the details for each activity stored in this trip
@@ -13,10 +14,17 @@ angular.module('app.trip', ['app.services'])
   // $scope.name stores the name of the trip/playlist
   // $scope.destination stores the destionation of the trip
   ActivitiesData.getTripActivities($scope.id, function (tripObj) {
-    console.log('tripobj ', tripObj);
-    $scope.activities = tripObj.data.list;
+
+    //Refer to join table via the tripObj.data.id
+
+    //return all activities associated with said table.....
+
+
+    $scope.activities = tripObj.data.list[0];
     $scope.name = tripObj.data.name;
-    $scope.destination = tripObj.data.destination;
+    $scope.area = tripObj.data.area;
+    console.log(tripObj.data)
+    console.log('scope is', $scope.area)
   });
 
 })

@@ -9,13 +9,14 @@ angular.module('app.landing', ['app.services'])
   // trips are stored in $scope.tripResults
   ActivitiesData.getTrips()
   .then(function(results){
+    console.log('TRIP RESULTS', results.data)
     $scope.tripResults = results.data;
   })
 
   // Redirect to view playlist information
   $scope.viewTrip = function (index) {
     // $scope.id is the mongoose _.id for the trip
-    $scope.id = $scope.tripResults[index]._id;
+    $scope.id = $scope.tripResults[index].id;
     $location.path('/trip/' + $scope.id);
   };
 
