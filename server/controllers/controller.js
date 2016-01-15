@@ -28,7 +28,6 @@ var filterTripData = function(responseObj) {
 };
 
 
-
 // <h4> parseCityName </h4>
 // Accepts the decoded request url, reformats it and 
 // returns a string of the city name 
@@ -196,4 +195,11 @@ module.exports = {
       }         
       )}
       )
-    }}
+    }
+
+    submitRating: function(req, res, next) {
+      var rating = req.body.rating
+      var playlistId = req.body.playlistid
+      console.log('Playlist rated')
+    }
+  }

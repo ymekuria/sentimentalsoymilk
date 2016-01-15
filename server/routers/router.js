@@ -20,13 +20,11 @@ module.exports = function(app, express) {
   
   app.post('/trips', controller.createTrip);
   app.get('/trips', controller.getAllTrips);
-  
-  
   app.get('/trips/:id', controller.accessTrip);
 
 
   //Routes remaining
-
+  app.post('/api/ratings/:id', controller.submitRating);
 
 
 
