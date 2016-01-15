@@ -1,28 +1,24 @@
 var db = require('./dbconnect.js');
 
-// var User = require('./users.js');
-// This will require the user model for whatever reason
-
 module.exports = function (app, express) {
 
-  
 //TODO: These are the routes for signup: Change to SQL
   app.post('/signup', function(req,res) {
-    var user = new User({
-      username : req.body.username,
-      password : req.body.password
-    })
-
-    user.save();
-    res.sendStatus(200);
-  })
-
-  app.get('/signup', function(req,res) {
-    User.find(function (err, tripitems) {
-      res.send(200, tripitems);
-    })
-  })
+    
 }
+
+
+//TODO: move over to SQL by displaying all trip items
+
+//   app.get('/signup', function(req,res) {
+//     User.findAll({where: {}}function (err, tripitems) {
+//       res.send(200, tripitems);
+//     })
+//   })
+// }
+
+
+
 
 //MONGO DB
 // var db = require('./dbconnect.js');

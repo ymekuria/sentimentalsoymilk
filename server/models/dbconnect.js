@@ -4,21 +4,45 @@ var bcrypt = require('bcrypt-nodejs');
 var database = process.env.DATABASE || 'soymilk'
 var dbUser = process.env.DBUSER || 'user'
 var dbPass = process.env.DBPASS || 'user'
-var dbHost = process.env.DBHOST
+var dbHost = process.env.DBHOST,
+    
+    passportLocalSequelize = require('passport-local-sequelize');
 
 var db = new Sequelize("soymilk", "root", "", {
     host: dbHost,
 });
 
 var User = db.define('User', {
-        username: Sequelize.STRING,
-        password: Sequelize.STRING,
+    name: Sequelize.STRING,
+    password: Sequelize.STRING,
+    myhash: Sequelize.STRING,
+    mysalt: Sequelize.STRING
+    }, {
+        instanceMethods: {
+            comparePasswords: function(pw, cb) {
+                bcrypt.compare(pw, this.getDataValue('password'), function(err, isMatch) {
+                    if (err) {
+                        return cb(err)
+                    } else {
+                        cb(null, isMatch)
+                    }
+                })
+            }
+        }
     });
+
+passportLocalSequelize.attachToUser(User, {
+    usernameField: 'name',
+    hashField: 'myhash',
+    saltField: 'mysalt'
+});
+
 
 var Playlist = db.define('Playlist', {
     name: Sequelize.STRING,
     area: Sequelize.STRING,
     timeReq: Sequelize.STRING,
+    image: Sequelize.STRING,
     dateCreate: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
@@ -34,6 +58,16 @@ var Activity = db.define('Activity', {
     photo: Sequelize.STRING,
     latitude: Sequelize.STRING,
     url: Sequelize.STRING
+}, {
+    name: {
+        singular: 'Activity',
+        plural: 'Activities'
+    }
+})
+
+
+var ActiveJoin = db.define('ActiveJoin', {}, {
+    timestamps: false
 })
 
 var Rating = db.define('Rating', {
@@ -44,24 +78,29 @@ var Favorite = db.define('Favorite', {
     type: Sequelize.BOOLEAN
 })
 
-// User.hasMany(Playlist)
+//This works...NOT. ActiveJoin is not getting populated
+Activity.belongsToMany(Playlist, {through: 'ActiveJoin'});
+Playlist.belongsToMany(Activity, {through: 'ActiveJoin'});
 
-Playlist.belongsTo(User)
-Playlist.belongsTo(Rating)
-Playlist.belongsTo(Favorite)
 
-// Activity.hasMany(Playlist)
-// Activity.belongsTo(Playlist)
+// Rating.hasOne('User')
 
 
 
-User.hasMany(Rating)
-Rating.belongsTo(User) 
+//Refactor relations
+User.hasMany(Playlist, {as: 'Traveler'});
+
+Playlist.belongsToMany(User, {through: 'Favorite'});
+User.belongsToMany(Playlist, {through: 'Favorite'});
+
+// Playlist.hasOne(User)
+
+Playlist.belongsToMany(User, {through: 'Rating'});
+User.belongsToMany(Playlist, {through: 'Rating'});
 
 
-
-User.hasMany(Favorite)
-Favorite.belongsTo(User)
+// User.belongsToMany(Favorite, {as: 'Favoriter'})
+// Favorite.hasOne(User)
 
 
 User.sync()
@@ -77,12 +116,20 @@ User.sync()
     .then(function() {
         return Favorite.sync();
     })
+    .then(function() {
+        return ActiveJoin.sync();
+    })
+
+
+
 
 exports.User = User;
 exports.Playlist = Playlist;
 exports.Activity = Activity;
-
 exports.Rating = Rating;
+
 exports.Favorite = Favorite;
+exports.ActiveJoin = ActiveJoin;
+exports.Rating = Rating;
 
  
