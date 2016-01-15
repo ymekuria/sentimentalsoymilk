@@ -29,6 +29,43 @@
   <h2 class="page-title">{{name}}</h2>
 
   <h4 class="page-title">{{destination}}</h4>
+  <h4 class="page-title">{{destination[0]}}, {{destination[1]}}</h4>
+  <div class="rating-container">
+    <h5>Rate This Playlist</h1>
+    <span class="starRating" ng-click="submitRating()">
+      <input id="rating5" type="radio" name="rating" value="5" ng-model="rating">
+      <label for="rating5"></label>
+      <input id="rating4" type="radio" name="rating" value="4" ng-model="rating">
+      <label for="rating4"></label>
+      <input id="rating3" type="radio" name="rating" value="3" ng-model="rating">
+      <label for="rating3"></label>
+      <input id="rating2" type="radio" name="rating" value="2" ng-model="rating">
+      <label for="rating2"></label>
+      <input id="rating1" type="radio" name="rating" value="1" ng-model="rating">
+      <label for="rating1"></label>
+    </span>
+  </div>
+
+<!--<script>
+   angular.module('valueExample', [])
+     .controller('ExampleController', ['$scope', function($scope) {
+       $scope.names = ['pizza', 'unicorns', 'robots'];
+       $scope.my = { favorite: 'unicorns' };
+     }]);
+</script>
+ <form ng-controller="ExampleController">
+   <h2>Which is your favorite?</h2>
+     <label ng-repeat="name in names" for="{{name}}">
+       {{name}}
+       <input type="radio"
+              ng-model="my.favorite"
+              ng-value="name"
+              id="{{name}}"
+              name="favorite">
+     </label>
+   <div>You chose {{my.favorite}}</div>
+ </form> -->
+ 
 
 
 <div class="tripview-container">
