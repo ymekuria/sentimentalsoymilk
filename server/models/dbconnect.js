@@ -73,31 +73,34 @@ var ActiveJoin = db.define('ActiveJoin', {}, {
 
 var Rating = db.define('Rating', {
     rating: Sequelize.INTEGER
+}, {
+    timestamps: false
 })
 
 var Favorite = db.define('Favorite', {
     type: Sequelize.BOOLEAN
 })
 
-//This works...NOT. ActiveJoin is not getting populated
+//WORKS
 Activity.belongsToMany(Playlist, {through: 'ActiveJoin'});
 Playlist.belongsToMany(Activity, {through: 'ActiveJoin'});
 
 
-// Rating.hasOne('User')
-
+//Ratings => Playlist
+Rating.belongsTo(Playlist)
 
 
 //Refactor relations
 User.hasMany(Playlist, {as: 'Traveler'});
+
 
 Playlist.belongsToMany(User, {through: 'Favorite'});
 User.belongsToMany(Playlist, {through: 'Favorite'});
 
 // Playlist.hasOne(User)
 
-Playlist.belongsToMany(User, {through: 'Rating'});
-User.belongsToMany(Playlist, {through: 'Rating'});
+// User.belongsToMany(Playlist, {through: 'Rating'});
+// Playlist.belongsToMany(User, {through: 'Rating'});
 
 
 // User.belongsToMany(Favorite, {as: 'Favoriter'})
@@ -112,13 +115,13 @@ User.sync()
         return Playlist.sync();
     })
     .then(function() {
-        return Rating.sync();
-    })
-    .then(function() {
         return Favorite.sync();
     })
     .then(function() {
         return ActiveJoin.sync();
+    })
+    .then(function() {
+        return Rating.sync();
     })
 
 

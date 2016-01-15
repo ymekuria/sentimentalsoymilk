@@ -195,11 +195,20 @@ module.exports = {
       }         
       )}
       )
-    }
+    },
 
     submitRating: function(req, res, next) {
       var rating = req.body.rating
       var playlistId = req.body.playlistid
+      //I need the UserID passed to me from the front
+
       console.log('Playlist rated')
+      db.Playlist.find({where:{id: playlistId}})
+      .then(function(found) {
+        found.setRatings(rating)
+      })
+      .then(function(done) { 
+        res.send(200, done)
+      })
     }
   }
