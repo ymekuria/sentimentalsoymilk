@@ -130,7 +130,7 @@ module.exports = {
   createTrip: function(req, res, next) {
     var playlist = {
       creator: req.body.creator, // added this field to test
-<<<<<<< b7f9e4254af80c35995ea187927660c2b53bf733
+
       name: req.body.name, 
       area: req.body.city + ", " + req.body.state,
       timeReq: req.body.time,
@@ -144,21 +144,7 @@ module.exports = {
       result.setActivities(playlist.activities)
     })
     res.send(200);
-=======
-      name: req.body.name,
-      destination: [req.body.city, req.body.state],
-      duration: req.body.duration,
-      activities: req.body.activities,
-      image: req.body.image
-    };
-    console.log('plalist in createTrip controller', playlist);
-    Trips.create(playlist, function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-      res.json(results);
-    });
->>>>>>> added duration andcreator fields through the app,
+
   },
 
   //<h3> GetAllTrips </h3> 
