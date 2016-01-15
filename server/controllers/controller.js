@@ -129,10 +129,12 @@ module.exports = {
 
   createTrip: function(req, res, next) {
     var playlist = {
-      name: req.body.name,
+      creator: req.body.creator, // added this field to test
+      name: req.body.name, 
       area: req.body.city + ", " + req.body.state,
       timeReq: req.body.time,
       activities: req.body.activities, // [2,3,5]
+
       image: req.body.image
     };
     db.Playlist.create(playlist)

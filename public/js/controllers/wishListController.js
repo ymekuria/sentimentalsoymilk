@@ -8,11 +8,14 @@ angular.module('app.wishlist', ['app.services'])
   // Is a function to get all trips to populate myTrips page
   // trips are stored in an $scope.tripResults as an array
 
-  $scope.removePlaylist = function (trip) {
-    //write a factory that takes in the alert and 
-    alert('list removed');
-    tripResults.splice(indexOf(trip,1));
-  }
+  // this function removes a playlist from the wishlist when the remove button is clicked. need to refactor
+  $scope.removePlaylist = function () {
+    
+    console.log('this', this);
+    var index = $scope.tripResults.indexOf(this);
+
+    $scope.tripResults.splice(index, 1);
+  };
 
   // need to either modify this or create a new function that GETS all the trips in a users wishlist
   ActivitiesData.getTrips()

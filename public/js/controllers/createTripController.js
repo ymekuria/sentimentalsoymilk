@@ -11,6 +11,8 @@ angular.module('app.create', ['app.services'])
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
+
+  var savedDuration;
   
   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
@@ -33,6 +35,12 @@ angular.module('app.create', ['app.services'])
         });
     }
   };
+  
+  // this function saves the value of the clicked dropdown by the user for time duration   
+  $scope.saveTime = function(time) {
+    savedDuration = time;
+    console.log('saveDuration', savedDuration)
+  }
 
   // $scope.itinerary is an empty array that will contain all the activities the user will add
   // to their trip
@@ -52,7 +60,9 @@ angular.module('app.create', ['app.services'])
   // <h4>$scope.removeFromTrip</h4>
   // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
+
     var index = $scope.itinerary.indexOf(this.activity);
+
     $scope.itinerary.splice(index, 1);
   };
 
@@ -66,9 +76,11 @@ angular.module('app.create', ['app.services'])
       return activity.id;
     });
     var tripObj = {
+      creator: $scope.creator, // added this field to give credit to the maker of a playlist
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
+      timeReq: $scope.duration, // this property is the duration inputed from the dropdown
       activities: activityIds,
       image: $scope.itineraryImage
     }
