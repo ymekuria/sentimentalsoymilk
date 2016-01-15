@@ -60,6 +60,7 @@ angular.module('app.create', ['app.services'])
   // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
 
+    console.log('this.activity', this.activity);
     var index = $scope.itinerary.indexOf(this.activity);
 
     $scope.itinerary.splice(index, 1);

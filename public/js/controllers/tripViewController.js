@@ -8,6 +8,7 @@ angular.module('app.trip', ['app.services'])
   $scope.id = $routeParams.id;
   console.log($scope.id)
 
+
   
 
   $scope.submitRating = function() {
@@ -22,6 +23,7 @@ angular.module('app.trip', ['app.services'])
 
 
   // ActivitiesData.getTripActivities returns and object containing
+
   // the details for each activity stored in this trip
   // $scope.activities stores an array of all activities
   // $scope.name stores the name of the trip/playlist
@@ -39,5 +41,12 @@ angular.module('app.trip', ['app.services'])
     console.log(tripObj.data)
     console.log('scope is', $scope.area)
   });
+
+  // this function adds a playlist to a users wishlist via the addItemstowishlist factory function
+  $scope.addToWishList = function (playlist) {
+    ActivitiesData.addItemstowishlist(playlist)
+
+  }
+  
 
 })

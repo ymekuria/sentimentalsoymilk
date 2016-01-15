@@ -153,16 +153,29 @@ angular.module('app.services',[])
      console.log("Error Getting User Trip Data: ", err)
    })
  };
-
+// this method gets a list of playlist given search parameters of location and duration
  data.getSearchedTrips = function (obj) {
   return $http({
     method: 'GET',
-    url: '/api/trips',
+    url: '/api/trips', // need to coordinate with anthony about this endpoint
     params: {location: obj.location,
               duration: obj.duration}
   }).success(function(data){
     return data;
-  })
+  });
+
+ };
+
+// this function adds playlists to a users wishlist initially passing an array of playlists to the api
+// we may need to change this to make a post request with a single playlist
+ data.addItemstowishlist = function (playlistArr) {
+   return $http({
+    method: 'POST',
+    url: '/api/wishlist', // need to coordinate with anthony about this endpoint
+    data: playlistArr
+  }).success(function(data){
+    return data;
+  }); 
 
  }
 
