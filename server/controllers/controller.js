@@ -1,10 +1,10 @@
 // var User = require('../models/users.js');
-var Trips = require('../models/trips.js');
-var TripItems = require('../models/tripItem.js');
+var db = require('../models/dbconnect.js');
+var Sequelize = require('sequelize');
+var Promise = require('bluebird');
 var request = require('request');
 var key = require('../env/config')
 var async = require('async');
-
 
 
 var filterTripData = function(responseObj) {
@@ -12,17 +12,17 @@ var filterTripData = function(responseObj) {
     var location = item.venue.location;
     var photoURL = item.venue.featuredPhotos.items[0];
     var notes = item.tips === undefined ? '' : item.tips[0].text; 
-    var tripItem = {
+    var Activity = {
       name: item.venue.name,
       address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
       city: location.city,
-      notes: notes,
+      notes: item.notes,
       category: item.venue.categories[0].name,
       rating: item.venue.rating,
       photo: photoURL.prefix + '300x300' + photoURL.suffix,
       url: item.venue.url
     };
-    totalData.push(tripItem); 
+    totalData.push(Activity); 
     return totalData;
   }, []);
 };
@@ -33,17 +33,17 @@ var filterTripData = function(responseObj) {
 // Accepts the decoded request url, reformats it and 
 // returns a string of the city name 
 var parseCityName = function(cityRequest) {
-    var cityLowercase = cityRequest.split(',')[0];
-    var city = '';
-    if (cityLowercase.indexOf(' ') > 0) {
-      var splitCity = cityLowercase.split(' ');
-      var firstCityHalf = splitCity[0][0].toUpperCase() + splitCity[0].slice(1);
-      var secondCityHalf = splitCity[1][0].toUpperCase() + splitCity[1].slice(1);
-      city += firstCityHalf + ' ' + secondCityHalf;
-    } else {
-      city += cityLowercase[0].toUpperCase() + cityLowercase.slice(1);
-    }
-    return city;
+  var cityLowercase = cityRequest.split(',')[0];
+  var city = '';
+  if (cityLowercase.indexOf(' ') > 0) {
+    var splitCity = cityLowercase.split(' ');
+    var firstCityHalf = splitCity[0][0].toUpperCase() + splitCity[0].slice(1);
+    var secondCityHalf = splitCity[1][0].toUpperCase() + splitCity[1].slice(1);
+    city += firstCityHalf + ' ' + secondCityHalf;
+  } else {
+    city += cityLowercase[0].toUpperCase() + cityLowercase.slice(1);
+  }
+  return city;
 }
 
 module.exports = {
@@ -58,23 +58,20 @@ module.exports = {
 
   searchStoredData: function(req, res, next) {
     var city = parseCityName(decodeURI(req.url.split('/')[2]));
-    console.log(city);
-    TripItems.find({ city: city }, function(err, list) {
-      if (list.length < 1) {
-        // if (list.length < 1) {
-        // City not cached; fetching data
-        console.log("City not cached; fetching data");
+    db.Activity.findAll({where: { city: city }})
+    .then(function(result, err) {
+      if (result.length === 0) {
+        console.log('fetching data')
         next();
-      }
-      else if (!err) {
-        // Pulling list from DB
-        console.log("Pulling list from DB");
-        res.send(list);
+      } else if (!err) {
+        console.log("Pulling list from DB", result);
+        res.send(200, result);
       } else {
-        res.send(err);
+        res.send(404, err)
       }
-    });
+    })
   },
+
 
   //<h4> fetchCityData </h4> 
   // Fetches data from the Foursquare API if the data is not 
@@ -83,6 +80,7 @@ module.exports = {
   // Route : /activities/*'
   fetchCityData: function(req, res, next) {
     var cityState = req.url.split('/')[2];
+    var city = parseCityName(decodeURI(req.url.split('/')[2]));
     return request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
       // prevent server crashing when responseObj is undefined
       if (!err && JSON.parse(body).meta.code === 200) { 
@@ -90,9 +88,15 @@ module.exports = {
         module.exports.saveCityData(filteredResults).then(function(results, err) {
           if (err) {
             res.send(err);
-          }
-        res.send(JSON.stringify(results));
-        });
+          } else {
+        //search data for city you just stored. give them stored city data
+        //so that way we can access the id of each
+        db.Activity.findAll({where: {city: results[0].city }})
+        .then(function(data) {
+          res.send(data)
+        })
+      }
+    })
       } else {
         res.status(400).send(err);
       }
@@ -102,9 +106,9 @@ module.exports = {
 
   //<h4>  saveCityData </h4> 
   // Adds the searched city to the database
-  // Model: TripItems
-  saveCityData: function(results, next) {
-    return TripItems.create(results, function(err, results) {
+  // Model: Activitys
+  saveCityData: function(results, next) { 
+    return db.Activity.bulkCreate(results, function(err, results) {
       if (err) {
         console.log(err);
       }
@@ -126,16 +130,16 @@ module.exports = {
   createTrip: function(req, res, next) {
     var playlist = {
       name: req.body.name,
-      destination: [req.body.city, req.body.state],
-      activities: req.body.activities,
+      area: req.body.city + ", " + req.body.state,
+      timeReq: req.body.time,
+      activities: req.body.activities, // [2,3,5]
       image: req.body.image
     };
-    Trips.create(playlist, function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-      res.json(results);
-    });
+    db.Playlist.create(playlist)
+    .then(function(result) {
+      result.setActivities(playlist.activities)
+    })
+    res.send(200);
   },
 
   //<h3> GetAllTrips </h3> 
@@ -143,8 +147,8 @@ module.exports = {
   // Method: Get
   // Route : /trips
   getAllTrips: function (req, res, next) {
-    Trips.find(function (err, results) {
-      console.log(results);
+    db.Playlist.findAll()
+    .then(function (results) {
       res.json(results)
     });
   },
@@ -154,35 +158,37 @@ module.exports = {
     // Acitivties is an array
     // Method: Get
     // Route : /trips/*
-  accessTrip: function(req, res, next) {
+    accessTrip: function(req, res, next) {
+    //ID not getting passed correctly from front end
     var tripId = req.params.id;
+
     var fullActivities = {};
     fullActivities.list = [];
-    Trips.findById({ _id: tripId }, function(err, trip) {
-      if (err) { 
-        console.log("findById error", err)
-        return err; 
-      } else {
-        console.log("FindbyID Results", trip);
-        return trip;
-      }
+    
+    db.Playlist.find({where: {id: tripId}})
+    .then(function(found) {
+      fullActivities.name = found.dataValues.name
+      fullActivities.destination = found.dataValues.area
+      return found.id
     })
-    .then(function(trip){
-      fullActivities.name = trip.name;
-      fullActivities.destination = trip.destination;
-      var activityLength = trip.activities.length;
-      trip.activities.forEach(function(tripId){
-        TripItems.findById({ _id: tripId }, function(err, trip) {
-          if (err) {
-            console.log("Error finding TripItems by tripId", err)
-          } else {
-            fullActivities.list.push(trip);
-            if(activityLength === fullActivities.list.length){
-              res.send(fullActivities);
-            } 
-          }
-        });
-      });
-    });
-  }
-};
+
+    .then(function(id) {
+      db.ActiveJoin.findAll({where: {PlaylistId: id}})
+      .then(function(joinId) {
+        //loop through array async style
+        var allID=[];
+        Sequelize.Utils._.each(joinId, function(item) {
+          allID.push(item.ActivityId)
+        })
+        return allID
+      })
+      .then(function(arrayIDs) {
+        db.Activity.findAll({where: {id: arrayIDs}})
+        .then(function(foundItems){
+          fullActivities.list.push(foundItems)
+          res.send(fullActivities)
+        })
+      }         
+      )}
+      )
+    }}

@@ -32,7 +32,7 @@ angular.module('app.create', ['app.services'])
     }
   };
 
-  // $scope.itinerary is an emtpy array that will contain all the activities the user will add
+  // $scope.itinerary is an empty array that will contain all the activities the user will add
   // to their trip
   $scope.itinerary = []; 
 
@@ -44,6 +44,7 @@ angular.module('app.create', ['app.services'])
       $scope.itineraryImage = this.activity.photo;
     }
     $scope.itinerary.push(this.activity);
+
   };
 
   // <h4>$scope.removeFromTrip</h4>
@@ -60,16 +61,16 @@ angular.module('app.create', ['app.services'])
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
     var activityIds = $scope.itinerary.map(function (activity) {
-      return activity._id;
+      return activity.id;
     });
-    console.log("ACTIVITY:", activityIds);
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
       activities: activityIds,
       image: $scope.itineraryImage
-    };
+    }
+    console.log("heeeeeeeeeey", tripObj);
     var trip = JSON.stringify(tripObj);
     ActivitiesData.createTrip(trip);
   };
