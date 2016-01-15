@@ -44,7 +44,8 @@ angular.module('app.trip', ['app.services'])
 
   // this function adds a playlist to a users wishlist via the addItemstowishlist factory function
   $scope.addToWishList = function (playlist) {
-    ActivitiesData.addItemstowishlist(playlist)
+    ActivitiesData.addItemstowishlist($scope.id);
+    console.log('$scope.id', $scope.id);
 
   }
   

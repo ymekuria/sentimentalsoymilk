@@ -168,7 +168,7 @@ angular.module('app.services',[])
 
 // this function adds playlists to a users wishlist initially passing an array of playlists to the api
 // we may need to change this to make a post request with a single playlist
- data.addItemstowishlist = function (playlistArr) {
+ data.addItemsToWishList = function (playlistArr) {
    return $http({
     method: 'POST',
     url: '/api/wishlist', // need to coordinate with anthony about this endpoint
