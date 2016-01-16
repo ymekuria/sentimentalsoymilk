@@ -17,6 +17,26 @@ angular.module('app.services',[])
       });
   };
 
+  var calcRatings = function(obj, array) {
+    //iterate through ratingArray object to get averages
+    for(var key in obj) {
+      //get the total by reducing through each id's ratings
+      var total = obj[key].reduce(function(acc, memo) {
+        return acc += memo;
+      })
+      //set the rating by dividing the total by the length
+      var rating = total/obj[key].length;
+      //iterate through the array now
+      for(var i = 0; i < array.length; i++) {
+        //if obj's id === key...
+        if(array[i].id === parseInt(key)) {
+          //... set that obj's rating to be rating
+          array[i].rating = rating;
+          array[i].votes = obj[key].length;
+        }
+      }
+    }
+  }; 
   //method for getting all the ratings for a particular playlist
   //this will be the value of a rating scope variable for controller
   //and will replace the foursquare rating
@@ -26,7 +46,7 @@ angular.module('app.services',[])
         method: 'GET',
         //need to figure out this url, the query will be for all
         //ratings with a particular playlist id. 
-        url: '/api/ratings/'+ playlistids,
+        url: '/api/ratings/' + playlistids,
         params: {trips: playlistids}
         //sending the rating to the database
       }).success(function(data) {
@@ -38,6 +58,7 @@ angular.module('app.services',[])
 
   return {
     postRatings: postRatings,
+    calcRatings: calcRatings,
     getPlaylistRating: getPlaylistRating
   }
 })

@@ -36,6 +36,7 @@ ActivitiesData.getip();
   // <h4>ActivitiesData.getTrips()</h4>
   // function that gets all the trips to populate the landing page
   // trips are stored in $scope.tripResults
+  
   ActivitiesData.getTrips()
   .then(function(results){
     console.log('TRIP RESULTS', results.data)
