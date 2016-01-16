@@ -15,6 +15,7 @@ var port = process.env.PORT || 8080;
 
 // require('./models/dbroutes.js')(app, express);
 
+
 app.use(bodyParser());
 app.use(require('connect-multiparty')())
 app.use(cookieParser())
@@ -27,9 +28,6 @@ passport.use(db.User.createStrategy())
 
 passport.serializeUser(db.User.serializeUser());
 passport.deserializeUser(db.User.deserializeUser());
-
-
-/////////it's only callback
 
 
 //Need to switch this out

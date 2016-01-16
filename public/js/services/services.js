@@ -71,6 +71,35 @@ angular.module('app.services',[])
   data.searchedCity = {};
   data.cityCache = {};
 
+  data.sendItin = function(data) {
+    return $http({
+      method: 'POST',
+      url: '/trips/' + data.id,
+      data: data
+    })
+    .then(function(results) {
+      console.log('POSTED success')
+      return results;
+    })
+    .catch(function(err) {
+      console.log('posted not success')
+    })
+  }
+
+  data.getIndividualTrip = function(tripId){
+    $http.get('/trips/' + tripId)
+    .then(function(results){
+      // server calls a get request to the foursquare api
+      // posts it to our database
+      // gets data back out of our database and returns it
+      console.log('Trip Result for ' + tripId +': ' + results)
+      callback(results);
+    })
+    .catch(function(err){
+      console.log("Error Getting Individual Trip Data: ", err)
+    })
+  };
+
   // <h4>data.getActivities</h4>
   // Function that sends a get request to /activities/`cityname`
   // and retrieves 30 foursquare top rated activities for the city

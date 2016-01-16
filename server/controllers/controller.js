@@ -5,6 +5,8 @@ var Promise = require('bluebird');
 var request = require('request');
 var key = require('../env/config')
 var async = require('async');
+var twilio = require('twilio');
+
 
 
 var filterTripData = function(responseObj) {
@@ -197,6 +199,38 @@ module.exports = {
       }         
       )}
       )
+    },
+
+    sendTripItin: function(req, res, next) {
+      var client = new twilio.RestClient('ACf8a63f7431470d76a56517e63ae0cb0a', '6d69af192a95d4c1e97bf27e7198cc38');
+      console.log('req is >>>>>>>>>>', req.params)
+      var message = req.body.itin
+      console.log('req is >>>>>>>>>>', message)
+      var test = "message" + "\n" + "hello"
+
+      client.sms.messages.create({
+        to:'+1'+req.body.id,
+        from:'19253266406',
+        body: message
+     }, function(error, message) {
+        // The HTTP request to Twilio will run asynchronously. This callback
+        // function will be called when a response is received from Twilio
+        // The "error" variable will contain error information, if any.
+        // If the request was successful, this value will be "falsy"
+        if (!error) {
+            // The second argument to the callback will contain the information
+            // sent back by Twilio for the request. In this case, it is the
+            // information about the text messsage you just sent:
+            console.log('Success! The SID for this SMS message is:');
+            console.log(message.sid);
+     
+            console.log('Message sent on:');
+            console.log(message.dateCreated);
+        } else {
+            console.log('Oops! There was an error.');
+        }
+     });
+      res.send(200)
     },
 
     submitRating: function(req, res, next) {
