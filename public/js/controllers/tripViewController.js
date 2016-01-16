@@ -6,13 +6,11 @@ angular.module('app.trip', ['app.services'])
 
   
   $scope.id = $routeParams.id;
-  console.log($scope.id)
 
 
   
 
   $scope.submitRating = function() {
-    console.log('YOU CLICKED ME HO')
     $scope.ratingData = {
       rating: $scope.rating,
       playlistid: $scope.id
@@ -33,7 +31,7 @@ angular.module('app.trip', ['app.services'])
   // the details for each activity stored in this trip
   // $scope.activities stores an array of all activities
   // $scope.name stores the name of the trip/playlist
-  // $scope.destination stores the destionation of the trip
+  // $scope.destination stores the destination of the trip
   ActivitiesData.getTripActivities($scope.id, function (tripObj) {
 
     //Refer to join table via the tripObj.data.id
@@ -43,6 +41,8 @@ angular.module('app.trip', ['app.services'])
 
     $scope.activities = tripObj.data.list[0];
     $scope.name = tripObj.data.name;
+    $scope.time = tripObj.data.time;
+    console.log(tripObj.data)
 
     $scope.area = tripObj.data.destination;
     $scope.playlist = tripObj.data; // creating a scope variable of the trip to be used in adddtoWishList below

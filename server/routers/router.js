@@ -22,7 +22,10 @@ module.exports = function(app, express) {
   
   app.post('/trips', controller.createTrip);
   app.get('/trips', controller.getAllTrips);
+  
   app.get('/trips/:id', controller.accessTrip);
+  app.get('/trips/:times', controller.accessTrip);
+
 
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -132,7 +132,7 @@ module.exports = {
 
       name: req.body.name, 
       area: req.body.city + ", " + req.body.state,
-      timeReq: req.body.time,
+      timeReq: req.body.duration,
       activities: req.body.activities, // [2,3,5]
 
       image: req.body.image
@@ -173,6 +173,7 @@ module.exports = {
     .then(function(found) {
       fullActivities.name = found.dataValues.name
       fullActivities.destination = found.dataValues.area
+      fullActivities.time = found.dataValues.timeReq
       return found.id
     })
 
@@ -225,6 +226,13 @@ module.exports = {
 
           res.send(200, ratingObj)
         })
+    },
+
+    getTimeTrips: function(req,res,next) {
+      console.log(">>>>>>>>>>>>", req.params)
+      
+      res.send(200)
+
     }
     
 

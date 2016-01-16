@@ -9,34 +9,41 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
   $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
   // this stores the value of what time duration the user wants to filter for use in a get request along with location info.
   var searchedTime;
-  $scope.time;
 
+  $scope.data;
+  $scope.time;
 
   //CREATE AN object to send time and location to the api
   $scope.searchData = {};
   
   $scope.searchTime = function (time) {
-    console.log('you selected', time);
-    
-
+    $scope.tripResults = ""
+    ActivitiesData.getTrips()
+    .then(function(results) {
+      $scope.data = results.data.filter(function(element) {
+        return element.timeReq === time
+      })
+    $scope.tripResults = $scope.data
+    })
   };
 
   // this method makes a get request to the api for playlists filtered by user inputs of location and duration
-  $scope.filteredByTimeTrips = function () {
-    // make a get 
-    ActivitiesData.getSearchedTrips($scope.searchData)
-      .then(function(trips){
-        $scope.searchResults = trips.data;  
-      })
+  // $scope.filteredByTimeTrips = function () {
+  //   // make a get 
+  //   ActivitiesData.getSearchedTrips($scope.searchData)
+  //     .then(function(trips){
+  //       $scope.searchResults = trips.data;  
+  //     })
 
-  }
+  // }
 
    var coordinates = ActivitiesData.getip(); //lat and long returned here
 
   // <h4>ActivitiesData.getTrips()</h4>
   // function that gets all the trips to populate the landing page
   // trips are stored in $scope.tripResults
-  
+
+
   // ActivitiesData.getTrips()
   // .then(function(results){
   //   console.log('TRIP RESULTS', results.data)
@@ -63,6 +70,7 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
       console.log('updated results', $scope.tripResults)
     }) 
   })
+
 
   // Redirect to view playlist information
   $scope.viewTrip = function (index) {

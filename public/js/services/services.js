@@ -179,9 +179,8 @@ angular.module('app.services',[])
  data.getSearchedTrips = function (obj) {
   return $http({
     method: 'GET',
-    url: '/api/trips', // need to coordinate with anthony about this endpoint
-    params: {location: obj.location,
-              duration: obj.duration}
+    url: '/api/trips' + obj, // need to coordinate with anthony about this endpoint
+    params: {obj}
   }).success(function(data){
     return data;
   });
