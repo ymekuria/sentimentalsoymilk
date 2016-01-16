@@ -57,7 +57,8 @@ var Activity = db.define('Activity', {
     city: Sequelize.STRING,
     rating: Sequelize.STRING,
     photo: Sequelize.STRING,
-    latitude: Sequelize.STRING,
+    lat: Sequelize.DECIMAL(20,10),
+    lng: Sequelize.DECIMAL(20,10),
     url: Sequelize.STRING
 }, {
     name: {
@@ -89,7 +90,6 @@ Playlist.belongsToMany(Activity, {through: 'ActiveJoin'});
 //Ratings => Playlist
 Playlist.hasMany(Rating)
 Rating.belongsTo(Playlist)
-
 
 
 //Refactor relations

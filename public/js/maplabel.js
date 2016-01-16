@@ -210,7 +210,10 @@ var title = NewLabels[i][0];
         marker.setDraggable(true);
 };
 ///////////
+    
+
        }
+      
       google.maps.event.addDomListener(window, 'load', init);
       
       var _gaq = _gaq || [];

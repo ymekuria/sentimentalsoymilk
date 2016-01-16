@@ -22,7 +22,10 @@ module.exports = function(app, express) {
   
   app.post('/trips', controller.createTrip);
   app.get('/trips', controller.getAllTrips);
+  
   app.get('/trips/:id', controller.accessTrip);
+  app.get('/trips/:times', controller.accessTrip);
+
 
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -44,7 +47,7 @@ app.get('/getip', function(req, res){
 
   var geo = geoip.lookup(ip);
   console.log(ip)
-  console.log('your ip is : ' + ip + "your location is : " + geo.city + ' your latitude and longitude is: '+ geo.ll);
+  // console.log('your ip is : ' + ip + "your location is : " + geo.city + ' your latitude and longitude is: '+ geo.ll);
   var query = "https://api.foursquare.com/v2/venues/explore?client_id=LGXX1L30LXIDOASWF4XWHQANZ5PBFUKZ2KZRGUVVTKP2RGJ2&client_secret=EEZFC1FAL0WB2MYDTPGVQLMRGNEHT0ZKQCIVFLY4Z4Z5HY21&v=20130815&ll="+geo.ll+"&venuePhotos=1";
 
   requestCallback(query, function(result){
