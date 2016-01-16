@@ -3,7 +3,7 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
 // ActivitiesData a factory/service stored in app.services
 // $location is for redirecting
 
-.controller('LandingController', function ($scope, $http, Ratings, ActivitiesData, $location) {
+.controller('LandingController', function ($scope, $http, Ratings, ActivitiesData, $location, Ratings) {
 
 
   $scope.timeOptions = ['Quarter Day', 'Half Day', 'Full Day', 'Night'];
@@ -36,11 +36,32 @@ ActivitiesData.getip();
   // <h4>ActivitiesData.getTrips()</h4>
   // function that gets all the trips to populate the landing page
   // trips are stored in $scope.tripResults
+  
+  // ActivitiesData.getTrips()
+  // .then(function(results){
+  //   console.log('TRIP RESULTS', results.data)
+  //   $scope.tripResults = results.data;
+  //   console. log('trip results', results.data);
+  // })
+
+  $scope.tripResults = 1;
+  $scope.ratingArray; 
+  //scope.ratingArray, where all the ratings will go 
+  //calls Activities Data factory's getTrips - routes to /trips
   ActivitiesData.getTrips()
+  //returns results
   .then(function(results){
-    console.log('TRIP RESULTS', results.data)
     $scope.tripResults = results.data;
-    console. log('trip results', results.data);
+    var tripids = $scope.tripResults.map(function(element) {
+      return element.id})
+    Ratings.getPlaylistRating(tripids)
+    .then(function(data) {
+      //data.data is obj where keys are pl id and values are
+      //array of ratings
+      $scope.ratingArray = data.data;
+      Ratings.calcRatings($scope.ratingArray, $scope.tripResults)
+      console.log('updated results', $scope.tripResults)
+    }) 
   })
 
   // Redirect to view playlist information
