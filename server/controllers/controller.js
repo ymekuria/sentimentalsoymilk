@@ -17,6 +17,8 @@ var filterTripData = function(responseObj) {
       address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
       city: location.city,
       notes: item.notes,
+      lat: location.lat,
+      lng: location.lng,
       category: item.venue.categories[0].name,
       rating: item.venue.rating,
       photo: photoURL.prefix + '300x300' + photoURL.suffix,

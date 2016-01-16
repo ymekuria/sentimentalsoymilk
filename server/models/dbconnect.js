@@ -57,7 +57,8 @@ var Activity = db.define('Activity', {
     city: Sequelize.STRING,
     rating: Sequelize.STRING,
     photo: Sequelize.STRING,
-    latitude: Sequelize.STRING,
+    lat: Sequelize.STRING,
+    lng: Sequelize.STRING,
     url: Sequelize.STRING
 }, {
     name: {

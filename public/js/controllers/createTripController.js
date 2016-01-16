@@ -77,7 +77,6 @@ angular.module('app.create', ['app.services'])
     });
 
     console.log("ACTIVITY:", activityIds);
-    console.log('duration inside of save', $scope.duration)
 
     var tripObj = {
       creator: $scope.creator, // added this field to give credit to the maker of a playlist
@@ -88,7 +87,8 @@ angular.module('app.create', ['app.services'])
       activities: activityIds,
       image: $scope.itineraryImage
     }
-    console.log("heeeeeeeeeey", tripObj);
+    console.log('duration inside of save', tripObj)
+
     var trip = JSON.stringify(tripObj);
     ActivitiesData.createTrip(trip);
   };
