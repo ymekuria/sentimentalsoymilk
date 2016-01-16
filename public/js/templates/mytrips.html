@@ -26,7 +26,7 @@
 
 <!-- Content -->
   <h1 class="page-title">Playlists</h1>
-  <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
+  <input type="text" ng-model="filter.area" id="landing-filter" placeholder="Search By City">
   <div class="myTrips" style="background-color: white">
     <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
       <div class="playlist-img">
@@ -36,8 +36,8 @@
         <p class="glyphicon glyphicon-play-circle play-icon"></p>
         <p class="trip-name">{{trip.name}}</p>
         <p class="trip-rating">Rating: 3.4{{trip.rating}} <!--get this rating from joey-->
-        <p class="trip-duration">{{trip.duration}}</p>
-        <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
+        <p class="trip-duration">{{trip.timeReq}}</p>
+        <p class="trip-destination">{{trip.destination}}</p>
       </div>
     </span>
   </div>  

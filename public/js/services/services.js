@@ -4,14 +4,14 @@ angular.module('app.services',[])
 
 //factory for ratings, methods for posting and getting playlist rating
 .factory('Ratings', function($http) {
-  var postRatings = function(rating, playlistid) {
+  var postRatings = function(ratingData) {
     return $http({
         method: 'POST',
         //NEED THE ROUTE FOR ADDING RATINGS, may need playlist id
         //playlist id stored as scope id on tripcontroller
-        url: '/api/ratings/' + playlistid,
+        url: '/api/ratings/' + ratingData.playlistid,
         //sending the rating to the database
-        data: rating
+        data: ratingData
       }).success(function(data) {
         console.log('made request');
       });
@@ -21,12 +21,13 @@ angular.module('app.services',[])
   //this will be the value of a rating scope variable for controller
   //and will replace the foursquare rating
   //INTERACTS WITH LANDING CONTROLLER/VIEW
-  var getPlaylistRating = function(playlistid) {
+  var getPlaylistRating = function(playlistids) {
     return $http({
         method: 'GET',
         //need to figure out this url, the query will be for all
         //ratings with a particular playlist id. 
-        url: '/api/ratings/' + playlistid,
+        url: '/api/ratings/'+ playlistids,
+        params: {trips: playlistids}
         //sending the rating to the database
       }).success(function(data) {
         //I'm envisioning that data is all the ratings for the PL

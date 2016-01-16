@@ -28,7 +28,6 @@ var filterTripData = function(responseObj) {
 };
 
 
-
 // <h4> parseCityName </h4>
 // Accepts the decoded request url, reformats it and 
 // returns a string of the city name 
@@ -196,4 +195,47 @@ module.exports = {
       }         
       )}
       )
-    }}
+    },
+
+    submitRating: function(req, res, next) {
+      var rating = req.body.rating
+      var playlistid = req.body.playlistid
+
+      db.Rating.create({rating: rating, PlaylistId: playlistid})
+        .then(function() {   
+          res.send(200)
+      })
+    },
+
+    getRating: function(req, res, next) {
+      var trips = req.params.ids.split(',').map(function(element) {
+        return parseInt(element)
+      });
+  
+      db.Rating.findAll({where: {PlaylistId: trips}})
+        .then(function(results) {
+          console.log('results are ', results.length)        
+
+          var ratingObj = results.reduce(function(acc, memo) {
+            acc[memo.PlaylistId] = acc[memo.PlaylistId] || []
+            acc[memo.PlaylistId].push(memo.rating)
+            return acc;
+
+          }, {})
+
+          res.send(200, ratingObj)
+        })
+    }
+    
+
+
+      
+      // db.Playlist.find({where:{id: playlistid}})
+      // .then(function(found) {
+      //   found.addRatings(rating)
+      // })
+      // .then(function(done) { 
+      //   res.send(200, done)
+      // })
+  }
+  

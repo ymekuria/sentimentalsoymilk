@@ -12,12 +12,18 @@ angular.module('app.trip', ['app.services'])
   
 
   $scope.submitRating = function() {
-    Ratings.postRatings($scope.rating, $scope.id)
+    console.log('YOU CLICKED ME HO')
+    $scope.ratingData = {
+      rating: $scope.rating,
+      playlistid: $scope.id
+    }
+
+    Ratings.postRatings($scope.ratingData)
       .then(function() {
         console.log('made request'); 
       })
       .catch(function(){
-        console.log($scope.rating);
+        console.log($scope.ratingData);
       })
   }
 
@@ -37,10 +43,12 @@ angular.module('app.trip', ['app.services'])
 
     $scope.activities = tripObj.data.list[0];
     $scope.name = tripObj.data.name;
-    $scope.area = tripObj.data.area;
+
+    $scope.area = tripObj.data.destination;
     $scope.playlist = tripObj.data; // creating a scope variable of the trip to be used in adddtoWishList below
     
     console.log('scope is', $scope.area)
+
   });
 
   // this function adds a playlist to a users wishlist via the addItemstowishlist factory function
