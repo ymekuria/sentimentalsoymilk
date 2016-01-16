@@ -23,6 +23,30 @@ angular.module('app.trip', ['app.services'])
       })
   }
 
+  $scope.sendItin= function(number) {
+    console.log("number is....", number)
+    console.log("number is....", $scope.activities)
+    var itinArray = $scope.activities.map(function(element) {
+      return [element.name, element.address]
+    })
+
+    var itinMessage = ''
+    for (var i = 0; i < itinArray.length; i++) {
+      itinMessage += i+1+ ")" + itinArray[i][0] + '\n'
+    }
+
+    console.log(itinMessage)
+
+    var sendData = {
+      id: number,
+      itin: itinMessage
+    }
+    ActivitiesData.sendItin(sendData)
+    .then(function(result) {
+      console.log('got it back')
+    })
+
+  }
 
   // ActivitiesData.getTripActivities returns and object containing
 

@@ -24,6 +24,10 @@ module.exports = function(app, express) {
   app.get('/trips', controller.getAllTrips);
   
   app.get('/trips/:id', controller.accessTrip);
+
+  app.post('/trips/:id', controller.sendTripItin)
+
+
   app.get('/trips/:times', controller.accessTrip);
 
 
