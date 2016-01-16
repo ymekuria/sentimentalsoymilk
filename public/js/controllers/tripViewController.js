@@ -228,7 +228,7 @@ MapLabel.prototype.getVisible_ = function() {
  function init(array) {
   var myLatlng = new google.maps.LatLng(array[0][1], array[0][2]);
   var myOptions = {
-    zoom: 5,
+    zoom: 12,
     center: myLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
