@@ -58,9 +58,26 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
   ActivitiesData.getTrips()
   //returns results
   .then(function(results){
-    $scope.tripResults = results.data;
+
+var filteredResults = [];
+
+    if(coordinates && coordinates.geo.city){
+        for (playlists in results.data){
+          if(results.data[playlists].area.includes(coordinates.geo.city)){   
+            filteredResults.push(results.data[playlists]);
+          }   
+        }
+    }
+    
+  if(filteredResults[0] === undefined){
+    filteredResults = undefined;
+  };
+
+    $scope.tripResults = filteredResults || results.data;
+
     var tripids = $scope.tripResults.map(function(element) {
       return element.id})
+
     Ratings.getPlaylistRating(tripids)
     .then(function(data) {
       //data.data is obj where keys are pl id and values are
@@ -101,7 +118,7 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
     for(i = 0; i < data.length; i++){
       $scope.slides3.push(data[i].images.standard_resolution.url);
     }
-    console.log($scope.slides3);
+    //console.log($scope.slides3);
   });
 ////////////
 
