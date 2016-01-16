@@ -29,7 +29,7 @@
 <!-- nav -->
 <div ng-controller="LandingController">
 <md-button href="/#create" class="text-center" style="display:inline-block">Make a Playlist</md-button> 
-<h2 class="text-center">Fun Finder</h2>
+
 
                 <div class="carousel-demo">
                     <ul rn-carousel rn-carousel-index="carouselIndex3" rn-carousel-transition="hexagon" rn-carousel-buffered class="carousel3">
@@ -63,7 +63,7 @@
 <!-- dropdown test -->
 
 
-<div class="myTrips" style="background-color: white">
+<div class="myTrips" style="background-color: transparent">
   <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))" >
     <div class="playlist-img">
       <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
