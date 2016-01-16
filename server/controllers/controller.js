@@ -136,7 +136,6 @@ module.exports = {
       area: req.body.city + ", " + req.body.state,
       timeReq: req.body.duration,
       activities: req.body.activities, // [2,3,5]
-
       image: req.body.image
     };
     

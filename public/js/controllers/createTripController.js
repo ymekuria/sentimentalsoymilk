@@ -76,8 +76,6 @@ angular.module('app.create', ['app.services'])
       return activity.id;
     });
 
-    console.log("ACTIVITY:", activityIds);
-
     var tripObj = {
       creator: $scope.creator, // added this field to give credit to the maker of a playlist
       name: $scope.itineraryName,
