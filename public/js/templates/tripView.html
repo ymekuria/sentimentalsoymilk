@@ -30,26 +30,25 @@
   <h2 class="page-title">{{name}}</h2>
 
 
-  <h4 class="page-title">{{destination}}</h4>
-  <h4 class="page-title">{{destination[0]}}, {{destination[1]}}</h4>
+  <h4 class="page-title">{{area}}</h4>
 
   <div class="rating-container">
     <h5>Rate This Playlist</h1>
     <span class="starRating" ng-click="submitRating()">
       <input id="rating5" type="radio" name="rating" value="5" ng-model="rating">
-      <label for="rating5"></label>
+      <label for="rating5" ng-click="$event.stopPropagation()"></label>
       <input id="rating4" type="radio" name="rating" value="4" ng-model="rating">
-      <label for="rating4"></label>
+      <label for="rating4" ng-click="$event.stopPropagation()"></label>
       <input id="rating3" type="radio" name="rating" value="3" ng-model="rating">
-      <label for="rating3"></label>
+      <label for="rating3" ng-click="$event.stopPropagation()"></label>
       <input id="rating2" type="radio" name="rating" value="2" ng-model="rating">
-      <label for="rating2"></label>
+      <label for="rating2" ng-click="$event.stopPropagation()"></label>
       <input id="rating1" type="radio" name="rating" value="1" ng-model="rating">
-      <label for="rating1"></label>
+      <label for="rating1" ng-click="$event.stopPropagation()"></label>
     </span>
   </div>
-  <md-button  ng-click ="addToWishList()" class="btn btn-success">Add to Wishlist</md-button>
-
+<!--   <md-button ng-click ="" class="btn btn-success">Add to Wishlist</md-button>
+ -->
 <!--<script>
    angular.module('valueExample', [])
      .controller('ExampleController', ['$scope', function($scope) {

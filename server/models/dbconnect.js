@@ -87,7 +87,9 @@ Playlist.belongsToMany(Activity, {through: 'ActiveJoin'});
 
 
 //Ratings => Playlist
+Playlist.hasMany(Rating)
 Rating.belongsTo(Playlist)
+
 
 
 //Refactor relations

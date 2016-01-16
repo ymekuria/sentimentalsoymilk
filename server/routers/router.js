@@ -25,6 +25,7 @@ module.exports = function(app, express) {
 
   //Routes remaining
   app.post('/api/ratings/:id', controller.submitRating);
+  app.get('/api/ratings/:ids', controller.getRating);
 
 
 
