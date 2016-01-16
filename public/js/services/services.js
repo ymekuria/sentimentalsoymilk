@@ -187,6 +187,7 @@ data.getip = function(){
     url: '/getip'
   }).then(function successCallback(response) {
       console.log(response.data);
+      return response.data;
     }, function errorCallback(response) {
       console.log(response.data);
     });

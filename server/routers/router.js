@@ -27,7 +27,7 @@ module.exports = function(app, express) {
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-var requestCallback = function (query,callback){
+var requestCallback = function (query, callback){
   console.log('IN CALLBACK, IN CALLBACK ');
   request(query, function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -49,7 +49,7 @@ app.get('/getip', function(req, res){
 
   requestCallback(query, function(result){
     console.log("4S QUERY ==> " + result);
-    res.send(result);
+    res.send({api:result, geo: geo});
   });
 });
 
