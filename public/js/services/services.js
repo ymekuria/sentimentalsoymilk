@@ -180,6 +180,21 @@ angular.module('app.services',[])
 
  }
 
+
+data.getip = function(){
+  $http({
+    method: 'GET',
+    url: '/getip'
+  }).then(function successCallback(response) {
+      console.log(response.data);
+    }, function errorCallback(response) {
+      console.log(response.data);
+    });
+};
+
+
+
+
   return data;
 })
 

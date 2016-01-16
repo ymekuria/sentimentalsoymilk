@@ -272,3 +272,7 @@ body, html {
 .starRating:not(:hover) > :checked ~ label:before{
   opacity : 1;
 }
+
+.alignRight {
+   float:right;
+}

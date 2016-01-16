@@ -2,6 +2,8 @@
 
 var controller = require('../controllers/controller.js');
 var userController = require('../controllers/userController.js');
+var geoip = require('geoip-lite');
+var request = require('request');
 
 //MONGO
 
@@ -12,7 +14,7 @@ module.exports = function(app, express) {
   //####### Documentation in Controller 
 
   //These routes work
-  app.post('/api/signup', userController.signup)
+  app.post('/api/signup', userController.signup);
   app.post('/api/login', userController.login);
   app.get('/logout', userController.logout);
   
@@ -23,6 +25,35 @@ module.exports = function(app, express) {
   app.get('/trips/:id', controller.accessTrip);
 
 
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+var requestCallback = function (query,callback){
+  console.log('IN CALLBACK, IN CALLBACK ');
+  request(query, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+       callback(body);
+    }
+  });
+}
+//////////
+app.get('/getip', function(req, res){
+  var ip = req.headers['x-forwarded-for'] ||
+       req.connection.remoteAddress ||
+       req.socket.remoteAddress ||
+       req.connection.socket.remoteAddress;
+
+  var geo = geoip.lookup(ip);
+  console.log(ip)
+  console.log('your ip is : ' + ip + "your location is : " + geo.city + ' your latitude and longitude is: '+ geo.ll);
+  var query = "https://api.foursquare.com/v2/venues/explore?client_id=LGXX1L30LXIDOASWF4XWHQANZ5PBFUKZ2KZRGUVVTKP2RGJ2&client_secret=EEZFC1FAL0WB2MYDTPGVQLMRGNEHT0ZKQCIVFLY4Z4Z5HY21&v=20130815&ll="+geo.ll+"&venuePhotos=1";
+
+  requestCallback(query, function(result){
+    console.log("4S QUERY ==> " + result);
+    res.send(result);
+  });
+});
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   //Routes remaining
   app.post('/api/ratings/:id', controller.submitRating);
   app.get('/api/ratings/:ids', controller.getRating);
