@@ -26,6 +26,10 @@
 </nav>
 
 <!-- Content -->
+<div position="absolute" style="width: 1000px">
+<div id="map" style="width: 400px; height: 400px; float: left" position='relative'></div>
+
+ <div class='alignRight' position='relative'>
 <div class="page-title">
   <h2 class="page-title">{{name}}</h2>
 
@@ -33,7 +37,7 @@
   <h4 class="page-title">{{area}}</h4>
 
   <div class="rating-container">
-    <h5>Rate This Playlist</h1>
+    <h5>Rate This Playlist</h5>
     <span class="starRating" ng-click="submitRating()">
       <input id="rating5" type="radio" name="rating" value="5" ng-model="rating">
       <label for="rating5" ng-click="$event.stopPropagation()"></label>
@@ -105,4 +109,5 @@
     </li>
   </ul>
 </div>
-
+</div> <!-- end of align div -->
+</div>
