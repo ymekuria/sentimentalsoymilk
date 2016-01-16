@@ -31,7 +31,7 @@ angular.module('app.landing', ['app.services', 'angular-carousel'])
 
   }
 
-ActivitiesData.getip();
+   var coordinates = ActivitiesData.getip(); //lat and long returned here
 
   // <h4>ActivitiesData.getTrips()</h4>
   // function that gets all the trips to populate the landing page
@@ -76,7 +76,11 @@ ActivitiesData.getip();
     $scope.slides3 = [];
 /////////////  twitter API call
   var request = function(callback){
-    var url = 'https://api.instagram.com/v1/media/search?lat=36.114647&lng=-115.172813&access_token=16384709.6ac06b4.49b97800d7fd4ac799a2c889f50f2587&callback=JSON_CALLBACK';
+    if (coordinates && coordinates.geo){
+    var lat = coordinates.geo.ll[0];
+    var lng = coordinates.geo.ll[1];}
+    if (!lat){lat=36.114647; lng=-115.172813;};
+    var url = 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+lng+'&access_token=16384709.6ac06b4.49b97800d7fd4ac799a2c889f50f2587&callback=JSON_CALLBACK';
     $http.jsonp(url).success(function(data){
       callback(data);
     }).error(function(data){
